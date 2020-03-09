@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>滑块验证</title>
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="${request.contextPath}/plugins/bootstrap/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="${request.contextPath}/plugins/fontawesome-free/css/all.min.css">
+    <!-- slidercaptcha -->
+    <link rel="stylesheet" href="${request.contextPath}/plugins/slidercaptcha/css/slidercaptcha.css">
+    <style>
+        body{
+            padding-top: 35px;
+        }
+    </style>
+</head>
+<body>
+<div id="captcha"></div>
+<!-- jQuery -->
+<script src="${request.contextPath}/plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="${request.contextPath}/plugins/bootstrap/js/bootstrap.min.js"></script>
+<!-- layer -->
+<script src="${request.contextPath}/plugins/layer/layer.js"></script>
+<!-- slidercaptcha -->
+<script src="${request.contextPath}/plugins/slidercaptcha/js/slidercaptcha.js"></script>
+<script>
+    var index = parent.layer.getFrameIndex(window.name);
+
+    $('#captcha').sliderCaptcha({
+        width: 280,
+        height: 150,
+        sliderL: 42,
+        sliderR: 9,
+        offset: 5,
+        loadingText: '正在加载中...',
+        failedText: '再试一次',
+        barText: '请滑动拼图完成验证',
+        repeatIcon: 'fa fa-redo',
+        setSrc: function () {
+            return '${request.contextPath}/img/slidercaptcha/Pic'+ Math.round(Math.random() * 4) +'.jpg';
+        },
+        onSuccess: function () {
+            $.ajax({
+                type:'post',
+                url:'sliderCaptcha',
+                async:false,
+                success:function(){
+                    parent.$('#signin').click();
+                    parent.layer.close(index);
+                }
+            })
+        },
+    });
+</script>
+</body>
+</html>
