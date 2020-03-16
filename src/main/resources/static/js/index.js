@@ -24,4 +24,18 @@ $(function () {
         return false;
     });
 
+    /**
+     * 登出
+     */
+    $('.logout').click(function () {
+        layer.msg('确定退出系统吗？', {
+            icon: 3
+            ,btn: ['确定', '取消']
+            ,yes: function(index){
+                layer.close(index);
+                window.location = 'logout';
+            }
+        });
+    })
+
 })
