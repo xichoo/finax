@@ -4,9 +4,9 @@ $(function () {
     $('form').bootstrapValidator({
         message: 'This value is not valid',
         feedbackIcons: {
-            valid: 'glyphicon glyphicon-ok',
-            invalid: 'glyphicon glyphicon-remove',
-            validating: 'glyphicon glyphicon-refresh'
+            valid: 'fas fa-check',
+            invalid: 'fas fa-times',
+            validating: 'fas fa-sync'
         },
         fields: {
             username: {

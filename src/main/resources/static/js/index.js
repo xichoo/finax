@@ -17,6 +17,7 @@ $(function () {
             return false;
         }
         $('.content_frame').attr('src', url);
+        $('.content_frame').height($('.content-wrapper').height() - 80);
 
         $('.text-dark').text($(this).find('p').html());
         $('.breadcrumb').find('li').eq(1).text($(this).find('p').html());

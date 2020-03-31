@@ -19,8 +19,8 @@ $('#table').bootstrapTable({
     search: false, //显示表格搜索
     showRefresh: true,// 显示刷新按钮
     striped: true, // 显示行间隔色
-    showColumns: false, // 选择显示的列
-    height: 650,
+    showColumns: true, // 选择显示的列
+    height: 700,
     queryParams: queryParam,
 })
 
