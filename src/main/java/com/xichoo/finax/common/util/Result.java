@@ -9,4 +9,8 @@ public class Result extends HashMap{
         put("code", code);
         put("msg", msg);
     }
+
+    public Result(String key, Object value){
+        put(key, value);
+    }
 }

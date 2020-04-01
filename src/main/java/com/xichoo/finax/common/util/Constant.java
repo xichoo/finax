@@ -1,5 +1,7 @@
 package com.xichoo.finax.common.util;
 
+import org.apache.shiro.crypto.hash.SimpleHash;
+
 /**
  * 常量
  * @author xichoo@live.cn
@@ -39,6 +41,13 @@ public class Constant {
         public String getMsg() {
             return msg;
         }
+    }
+
+    /**
+     * 密码加密
+     */
+    public static String getPassword(String source, String salt){
+        return new SimpleHash(SHIRO_ALGORITHMNAME, source, salt, 1).toString();
     }
 
 }

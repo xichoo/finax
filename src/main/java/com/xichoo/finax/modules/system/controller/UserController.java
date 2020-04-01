@@ -1,5 +1,8 @@
 package com.xichoo.finax.modules.system.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.xichoo.finax.common.util.Constant;
+import com.xichoo.finax.common.util.Result;
 import com.xichoo.finax.modules.system.entity.User;
 import com.xichoo.finax.modules.system.service.UserService;
 import org.apache.logging.log4j.util.Strings;
@@ -8,10 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.lang.reflect.Array;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * 用户管理控制器
@@ -31,7 +31,7 @@ public class UserController extends BaseController{
     @ResponseBody
     public Object list(HttpServletRequest request){
         startPage(request);
-        List<User> list = userService.list();
+        List<User> list = userService.list(new QueryWrapper<User>().orderByDesc("create_date"));
         return pageData(list);
     }
 
@@ -48,7 +48,24 @@ public class UserController extends BaseController{
         if(user.getId() == null){
             user.setCreateDate(new Date());
         }
+        if(Strings.isNotBlank(user.getPassword())){
+            user.setPassword(Constant.getPassword(user.getPassword(), user.getUsername()));
+        }
         return userService.saveOrUpdate(user);
+    }
+
+    @GetMapping("/checkUsername")
+    @ResponseBody
+    public Map checkUsername(String id, String username){
+        List<User> list = userService.list(new QueryWrapper<User>().eq("username", username));
+        boolean valid = list.size() == 0;
+        User user = userService.getById(id);
+        if(user!=null && list.size()>0){
+            if(list.get(0).getUsername().equals(user.getUsername())){
+                valid = true;
+            }
+        }
+        return new Result("valid", valid);
     }
 
     @GetMapping("/delete/{ids}")

@@ -16,21 +16,36 @@ $(function () {
                         message: '请输入用户名'
                     },
                     stringLength: {
-                        min: 6,
-                        max: 18,
-                        message: '用户名长度必须在6到18位之间'
+                        min: 5,
+                        max: 15,
+                        message: '用户名长度必须在5到15位之间'
                     },
                     regexp: {
                         regexp: /^[a-zA-Z0-9_]+$/,
                         message: '用户名只能包含大写、小写、数字和下划线'
-                    }
+                    },
+                    remote: {
+                        url: ctx + '/system/user/checkUsername',
+                        message: "用户已存在",
+                        dataType: 'json',
+                        data: {
+                            "id": $("input[name='id']").val() ,
+                            "username": $("input[name='username']").val() ,
+                        },
+                        delay: 500,//延迟效果
+                    },
                 }
             },
             password: {
                 validators: {
                     notEmpty: {
                         message: '请输入密码'
-                    }
+                    },
+                    stringLength: {
+                        min: 6,
+                        max: 18,
+                        message: '密码必须在6到18位数之间'
+                    },
                 }
             }
         },
@@ -41,11 +56,11 @@ $(function () {
         validator.validate();
         if(validator.isValid()){
             $.ajax({
-                url: 'add',
+                url: ctx + '/system/user/add',
                 type: 'post',
                 data: $('form').serialize(),
                 success:function (data) {
-                    layer.msg(data==true?'操作成功':'操作失败', {icon: data==true?6:5});
+                    parent.layer.msg(data==true?'操作成功':'操作失败', {icon: data==true?6:5});
                     if(data) {
                         parent.layer.close(index);
                         parent.$("#table").bootstrapTable('refresh');
