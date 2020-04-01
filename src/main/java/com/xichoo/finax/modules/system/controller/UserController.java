@@ -71,6 +71,13 @@ public class UserController extends BaseController{
     @GetMapping("/delete/{ids}")
     @ResponseBody
     public boolean delete(@PathVariable String ids){
-        return userService.removeByIds(Arrays.asList(ids.split(",")));
+        List<String> list = new ArrayList<>();
+        String[] ids_ = ids.split(",");
+        for(int i=0;i<ids_.length;i++){
+            if(!"1".equals(ids_[i])){
+                list.add(ids_[i]);
+            }
+        }
+        return userService.removeByIds(list);
     }
 }
