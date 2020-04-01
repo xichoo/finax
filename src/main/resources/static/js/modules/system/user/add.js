@@ -38,9 +38,6 @@ $(function () {
             },
             password: {
                 validators: {
-                    notEmpty: {
-                        message: '请输入密码'
-                    },
                     stringLength: {
                         min: 6,
                         max: 18,
