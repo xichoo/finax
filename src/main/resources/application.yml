@@ -1,5 +1,4 @@
 server:
-  # 端口配置
   port: 8080
   tomcat:
     uri-encoding: UTF-8
@@ -7,11 +6,9 @@ server:
     context-path: /finax
 
 spring: 
-  #freemaker配置
-  freemarker: 
+  freemarker:
     suffix: .html
     request-context-attribute: request
-  #数据源配置
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
     driverClassName: com.mysql.jdbc.Driver
@@ -19,7 +16,6 @@ spring:
     username: root
     password: Passw0rd
 
-# mybatis-plus配置
 mybatis-plus:
   mapper-locations: classpath:/mappings/**/*.xml
   typeAliasesPackage: com.xichoo.finax.modules.*.entity
@@ -39,4 +35,4 @@ mybatis-plus:
     # 是否映射查询结果中包含空值的列
     call-setters-on-nulls: true
     # 打印执行sql
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    #log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

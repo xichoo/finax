@@ -57,10 +57,15 @@ $(function () {
                 type: 'post',
                 data: $('form').serialize(),
                 success:function (data) {
-                    parent.layer.msg(data==true?'操作成功':'操作失败', {icon: data==true?6:5});
-                    if(data) {
-                        parent.layer.close(index);
-                        parent.$("#table").bootstrapTable('refresh');
+                    switch (data.code){
+                        case 0:
+                            parent.layer.msg(data.msg, {icon: 6});
+                            parent.layer.close(index);
+                            parent.$("#table").bootstrapTable('refresh');
+                            break;
+                        case 500:
+                            layer.msg(data.msg , {icon: 5});
+                            break;
                     }
                 }
             })

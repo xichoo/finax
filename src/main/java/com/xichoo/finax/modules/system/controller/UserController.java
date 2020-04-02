@@ -44,19 +44,20 @@ public class UserController extends BaseController{
 
     @PostMapping("/add")
     @ResponseBody
-    public boolean add(User user){
+    public Result add(User user){
         if(user.getId() == null){
             user.setCreateDate(new Date());
         }
         if(Strings.isNotBlank(user.getPassword())){
             user.setPassword(Constant.getPassword(user.getPassword(), user.getUsername()));
         }
-        return userService.saveOrUpdate(user);
+        userService.saveOrUpdate(user);
+        return Result.success();
     }
 
     @GetMapping("/checkUsername")
     @ResponseBody
-    public Map checkUsername(String id, String username){
+    public Result checkUsername(String id, String username){
         List<User> list = userService.list(new QueryWrapper<User>().eq("username", username));
         boolean valid = list.size() == 0;
         User user = userService.getById(id);
@@ -70,7 +71,7 @@ public class UserController extends BaseController{
 
     @GetMapping("/delete/{ids}")
     @ResponseBody
-    public boolean delete(@PathVariable String ids){
+    public Result delete(@PathVariable String ids){
         List<String> list = new ArrayList<>();
         String[] ids_ = ids.split(",");
         for(int i=0;i<ids_.length;i++){
@@ -78,6 +79,7 @@ public class UserController extends BaseController{
                 list.add(ids_[i]);
             }
         }
-        return userService.removeByIds(list);
+        userService.removeByIds(list);
+        return Result.success();
     }
 }

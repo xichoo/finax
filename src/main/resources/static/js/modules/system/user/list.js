@@ -81,8 +81,15 @@ $("#delete").click(function(){
         $.ajax({
             url:'delete/' + ids,
             success:function(data){
-                layer.msg(data==true?'操作成功':'操作失败', {icon: data==true?6:5});
-                $("#table").bootstrapTable('refresh');
+                switch (data.code){
+                    case 0:
+                        layer.msg(data.msg, {icon: 6});
+                        $("#table").bootstrapTable('refresh');
+                        break;
+                    case 500:
+                        layer.msg(data.msg , {icon: 5});
+                        break;
+                }
             }
         })
     });

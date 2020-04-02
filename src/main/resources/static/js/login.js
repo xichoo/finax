@@ -22,6 +22,9 @@ $("#signin").click(function(){
                 case 3:
                     layer.msg(data.msg , {icon: 5});
                     break;
+                case 500:
+                    layer.msg(data.msg , {icon: 5});
+                    break;
             }
         }
     })
