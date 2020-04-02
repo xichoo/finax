@@ -1,6 +1,6 @@
 $('#table').bootstrapTable({
     method: "post",
-    url: 'list',
+    url: ctx + '/system/user/list',
     columns: [
         {checkbox: true},
         {field: 'id', title: 'ID'},
@@ -79,7 +79,7 @@ $("#delete").click(function(){
             }
         }
         $.ajax({
-            url:'delete/' + ids,
+            url: ctx + '/system/user/delete/' + ids,
             success:function(data){
                 switch (data.code){
                     case 0:
