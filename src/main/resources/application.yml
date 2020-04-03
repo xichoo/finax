@@ -16,6 +16,11 @@ spring:
     username: root
     password: Passw0rd
 
+xss:
+  enabled: true
+  excludes:
+  urlPatterns: /*
+
 mybatis-plus:
   mapper-locations: classpath:/mappings/**/*.xml
   typeAliasesPackage: com.xichoo.finax.modules.*.entity
