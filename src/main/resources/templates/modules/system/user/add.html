@@ -1,7 +1,7 @@
 <#include "/header.html"/>
 
 <div class="card card-primary">
-    <form role="form" action="add" method="post">
+    <form role="form" action="${request.contextPath}/system/user/add" method="post">
         <input type="hidden" name="id" value="${(entity.id)!}">
         <div class="card-body">
             <div class="form-group">

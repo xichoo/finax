@@ -2,6 +2,7 @@ package com.xichoo.finax.modules.system.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.apache.logging.log4j.util.Strings;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
@@ -18,9 +19,11 @@ public class BaseController {
      * PageHelper分页处理
      */
     public void startPage(HttpServletRequest request){
-        int pageNum = Integer.parseInt(request.getParameter("pageNum"));
-        int pageSize = Integer.parseInt(request.getParameter("pageSize"));
-        PageHelper.startPage(pageNum, pageSize);
+        String pageNum = request.getParameter("pageNum");
+        String pageSize = request.getParameter("pageSize");
+        if(Strings.isNotBlank(pageNum) && Strings.isNotBlank(pageSize)){
+            PageHelper.startPage(Integer.parseInt(pageNum), Integer.parseInt(pageSize));
+        }
     }
 
     /**

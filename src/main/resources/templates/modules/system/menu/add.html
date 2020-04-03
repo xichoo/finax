@@ -1,0 +1,31 @@
+<#include "/header.html"/>
+
+<div class="card card-primary">
+    <form role="form" action="${request.contextPath}/system/menu/add" method="post">
+        <input type="hidden" name="id" value="${(entity.id)!}">
+        <input type="hidden" name="parentId" value="${(entity.parentId)!}">
+        <div class="card-body">
+            <div class="form-group">
+                <label for="name">菜单名称</label>
+                <input type="text" class="form-control" id="name" name="name" value="${(entity.name)!}" placeholder="">
+            </div>
+            <div class="form-group">
+                <label for="url">url</label>
+                <input type="text" class="form-control" id="url" name="url" value="${(entity.url)!}" placeholder="">
+            </div>
+            <div class="form-group">
+                <label for="icon">图标</label>
+                <input type="text" class="form-control" id="icon" name="icon" value="${(entity.icon)!}" placeholder="">
+            </div>
+            <div class="form-group">
+                <label for="orderby">排序值</label>
+                <input type="text" class="form-control" id="orderby" name="orderby" value="${(entity.orderby)!}" placeholder="">
+            </div>
+        </div>
+        <div class="card-footer">
+            <button type="button" id="submit" class="btn btn-primary">提交</button>
+        </div>
+    </form>
+</div>
+
+<script src="${request.contextPath}/js/modules/system/menu/add.js"></script>
