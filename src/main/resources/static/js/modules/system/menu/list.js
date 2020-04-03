@@ -13,8 +13,8 @@ $('#table').bootstrapTable({
     detailView: true,
     columns: [
         {checkbox: true},
-        {field: 'name', title: '菜单名称'},
-        {field: 'url', title: 'url'},
+        {field: 'name', title: '菜单名称', width: 300},
+        {field: 'url', title: 'url', width: 300},
         {field: 'icon', title: '图标'},
         {field: 'orderby', title: '排序值'},
         {field: 'createDate', title: '创建日期'},
