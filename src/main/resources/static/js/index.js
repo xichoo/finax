@@ -8,7 +8,7 @@ $(function () {
         var menua = $("a[href='"+ currenturl +"']");
 
         $('.content_frame').attr('src', currenturl.replace('#',''));
-        $('.content_frame').height($('.content-wrapper').height() - 80);
+        $('.content_frame').height($('.content-wrapper').height() - 100);
 
         $('.text-dark').text($(menua).find('p').html());
         $('.breadcrumb').find('li').eq(1).text($(menua).find('p').html());

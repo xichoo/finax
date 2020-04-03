@@ -9,15 +9,15 @@ $('#table').bootstrapTable({
     showColumns: true,
     clickToSelect: true,
     queryParams: queryParam,
-    height: 700,
+    height: 600,
     detailView: true,
     columns: [
         {checkbox: true},
-        {field: 'name', title: '菜单名称', width: 300},
-        {field: 'url', title: 'url', width: 300},
-        {field: 'icon', title: '图标'},
-        {field: 'orderby', title: '排序值'},
-        {field: 'createDate', title: '创建日期'},
+        {field: 'name', title: '菜单名称', width: 200},
+        {field: 'url', title: '菜单url', width: 300},
+        {field: 'icon', title: '图标', width: 200},
+        {field: 'orderby', title: '排序值', width: 100},
+        {field: 'createDate', title: '创建时间'},
     ],
     onExpandRow: function (index, row, $detail) {
         InitSubTable(index, row, $detail);
@@ -34,11 +34,13 @@ InitSubTable = function (index, row, $detail) {
         queryParams: {parentId: parentId},
         clickToSelect: true,
         columns: [
+            {field: '', title: ''},
             {checkbox: true},
-            {field: 'name', title: '菜单名称'},
-            {field: 'url', title: 'url'},
-            {field: 'icon', title: '图标'},
-            {field: 'orderby', title: '排序值'},
+            {field: 'name', title: '二级菜单', width: 200},
+            {field: 'url', title: '菜单url', width: 300},
+            {field: 'icon', title: '图标', width: 200},
+            {field: 'orderby', title: '排序值', width: 100},
+            {field: 'createDate', title: '创建时间'},
         ],
     });
 };
@@ -63,7 +65,7 @@ $("#add").click(function(){
     layer.open({
         title: '添加菜单',
         type: 2,
-        area: ['850px', '600px'],
+        area: ['750px', '550px'],
         fixed: false, //不固定
         maxmin: true,
         content: ctx + '/system/menu/add/1/' + parentId,
@@ -88,7 +90,7 @@ $("#edit").click(function(){
     layer.open({
         title: '修改菜单',
         type: 2,
-        area: ['850px', '600px'],
+        area: ['750px', '550px'],
         fixed: false, //不固定
         maxmin: true,
         content: ctx + '/system/menu/add/2/'+ id,

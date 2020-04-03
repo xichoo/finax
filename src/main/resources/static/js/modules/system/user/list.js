@@ -9,7 +9,7 @@ $('#table').bootstrapTable({
     showColumns: true,
     clickToSelect: true,
     queryParams: queryParam,
-    height: 700,
+    height: 600,
     columns: [
         {checkbox: true},
         {field: 'id', title: 'ID'},
@@ -34,7 +34,7 @@ $("#add").click(function(){
     layer.open({
         title: '添加用户信息',
         type: 2,
-        area: ['850px', '600px'],
+        area: ['750px', '550px'],
         fixed: false, //不固定
         maxmin: true,
         content: ctx + '/system/user/add'
@@ -51,7 +51,7 @@ $("#edit").click(function(){
     layer.open({
         title: '修改用户信息',
         type: 2,
-        area: ['850px', '600px'],
+        area: ['750px', '550px'],
         fixed: false, //不固定
         maxmin: true,
         content: ctx + '/system/user/add/'+ row[0].id,
