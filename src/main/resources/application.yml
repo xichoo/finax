@@ -35,4 +35,4 @@ mybatis-plus:
     # 是否映射查询结果中包含空值的列
     call-setters-on-nulls: true
     # 打印执行sql
-    #log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

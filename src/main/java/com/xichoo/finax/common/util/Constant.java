@@ -37,9 +37,23 @@ public class Constant {
         public Integer getCode() {
             return code;
         }
+    }
 
-        public String getMsg() {
-            return msg;
+    /**
+     * 操作类型
+     */
+    public enum OperationType {
+        ADD(1),
+        UPDATE(2);
+
+        private Integer type;
+
+        OperationType(Integer type) {
+            this.type = type;
+        }
+
+        public Integer getType() {
+            return type;
         }
     }
 

@@ -1,6 +1,7 @@
 package com.xichoo.finax.modules.system.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.xichoo.finax.common.util.Constant;
 import com.xichoo.finax.common.util.Result;
 import com.xichoo.finax.modules.system.entity.Menu;
 import com.xichoo.finax.modules.system.service.MenuService;
@@ -38,11 +39,11 @@ public class MenuController extends BaseController{
     }
 
     @GetMapping("/add/{type}/{id}")
-    public String add(HttpServletRequest request, @PathVariable String type, @PathVariable Long id){
+    public String add(HttpServletRequest request, @PathVariable Integer type, @PathVariable Long id){
         Menu menu = new Menu();
-        if("1".equals(type)){
+        if(Constant.OperationType.ADD.getType().equals(type)){
             menu.setParentId(id);
-        }else if("2".equals(type)){
+        }else if(Constant.OperationType.UPDATE.getType().equals(type)){
             menu = menuService.getById(id);
         }
         request.setAttribute("entity", menu);
