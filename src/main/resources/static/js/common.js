@@ -1,8 +1,3 @@
-/**
- * 封装通用的js方法
- * @author xichoo@live.cn
- */
-
 //创建列表
 var createTable = function(table, url, columns, detail,onExpandRow){
     $(table).bootstrapTable({
