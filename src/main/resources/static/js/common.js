@@ -39,3 +39,13 @@ var createModal = function(title, url){
         content: url,
     });
 }
+
+//获取选中行
+var getSelectRows = function(table){
+    var row = $(table).bootstrapTable('getSelections');
+    if(row.length == 0){
+        layer.msg('请选择行');
+        return;
+    }
+    return row;
+}

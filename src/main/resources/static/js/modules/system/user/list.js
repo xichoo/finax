@@ -14,21 +14,13 @@ $("#add").click(function(){
 })
 
 $("#edit").click(function(){
-    var row=$("#table").bootstrapTable('getSelections');
-    if(row.length == 0){
-        layer.msg('请选择行');
-        return;
-    }
+    var row = getSelectRows("#table");
 
     createModal('修改用户信息', ctx + '/system/user/add/'+ row[0].id);
 })
 
 $("#delete").click(function(){
-    var row=$("#table").bootstrapTable('getSelections');
-    if(row.length == 0){
-        layer.msg('请选择行');
-        return;
-    }
+    var row = getSelectRows("#table");
 
     layer.confirm('确认删除吗？', {
         btn: ['确定','取消'] //按钮
