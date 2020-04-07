@@ -1,44 +1,16 @@
-$('#table').bootstrapTable({
-    url: ctx + '/system/user/list',
-    method: "post",
-    contentType: "application/x-www-form-urlencoded",
-    toolbar: '#toolbar',
-    sidePagination: 'server',
-    pagination: true,
-    showRefresh: true,
-    showColumns: true,
-    clickToSelect: true,
-    queryParams: queryParam,
-    height: 600,
-    columns: [
-        {checkbox: true},
-        {field: 'id', title: 'ID'},
-        {field: 'username', title: '用户名'},
-        {field: 'email', title: '邮箱'},
-        {field: 'mobile', title: '电话'},
-        {field: 'createDate', title: '创建日期'},
-    ],
-})
+var columns = [
+    {checkbox: true},
+    {field: 'id', title: 'ID'},
+    {field: 'username', title: '用户名'},
+    {field: 'email', title: '邮箱'},
+    {field: 'mobile', title: '电话'},
+    {field: 'createDate', title: '创建日期'}
+];
 
-function queryParam(params){
-    var param = {
-        limit: this.limit, // 页面大小
-        offset: this.offset, // 页码
-        pageNum: this.pageNumber,
-        pageSize: this.pageSize
-    };
-    return param;
-}
+createTable('#table', ctx + '/system/user/list', columns);
 
 $("#add").click(function(){
-    layer.open({
-        title: '添加用户信息',
-        type: 2,
-        area: ['750px', '550px'],
-        fixed: false, //不固定
-        maxmin: true,
-        content: ctx + '/system/user/add'
-    });
+    createModal('添加用户信息', ctx + '/system/user/add');
 })
 
 $("#edit").click(function(){
@@ -48,14 +20,7 @@ $("#edit").click(function(){
         return;
     }
 
-    layer.open({
-        title: '修改用户信息',
-        type: 2,
-        area: ['750px', '550px'],
-        fixed: false, //不固定
-        maxmin: true,
-        content: ctx + '/system/user/add/'+ row[0].id,
-    });
+    createModal('修改用户信息', ctx + '/system/user/add/'+ row[0].id);
 })
 
 $("#delete").click(function(){

@@ -1,29 +1,13 @@
-$('#table').bootstrapTable({
-    url: ctx + '/system/menu/list',
-    method: "post",
-    contentType: "application/x-www-form-urlencoded",
-    toolbar: '#toolbar',
-    sidePagination: 'server',
-    pagination: true,
-    showRefresh: true,
-    showColumns: true,
-    clickToSelect: true,
-    queryParams: queryParam,
-    height: 600,
-    detailView: true,
-    columns: [
-        {checkbox: true},
-        {field: 'name', title: '菜单名称', width: 200},
-        {field: 'url', title: '菜单url', width: 300},
-        {field: 'icon', title: '图标', width: 200},
-        {field: 'orderby', title: '排序值', width: 100},
-        {field: 'createDate', title: '创建时间'},
-    ],
-    onExpandRow: function (index, row, $detail) {
-        InitSubTable(index, row, $detail);
-    },
-})
+var columns = [
+    {checkbox: true},
+    {field: 'name', title: '菜单名称', width: 200},
+    {field: 'url', title: '菜单url', width: 300},
+    {field: 'icon', title: '图标', width: 200},
+    {field: 'orderby', title: '排序值', width: 100},
+    {field: 'createDate', title: '创建时间'},
+];
 
+//加载子菜单
 InitSubTable = function (index, row, $detail) {
     var parentId = row.id;
     var cur_table = $detail.html('<table id="cur_table"></table>').find('table');
@@ -45,15 +29,7 @@ InitSubTable = function (index, row, $detail) {
     });
 };
 
-function queryParam(params){
-    var param = {
-        limit: this.limit, // 页面大小
-        offset: this.offset, // 页码
-        pageNum: this.pageNumber,
-        pageSize: this.pageSize
-    };
-    return param;
-}
+createTable('#table', ctx + '/system/menu/list', columns, true,InitSubTable);
 
 $("#add").click(function(){
     var parentId = 0;
@@ -62,14 +38,7 @@ $("#add").click(function(){
         parentId = row[0].id;
     }
 
-    layer.open({
-        title: '添加菜单',
-        type: 2,
-        area: ['750px', '550px'],
-        fixed: false, //不固定
-        maxmin: true,
-        content: ctx + '/system/menu/add/1/' + parentId,
-    });
+    createModal('添加菜单', ctx + '/system/menu/add/1/' + parentId);
 })
 
 $("#edit").click(function(){
@@ -87,14 +56,7 @@ $("#edit").click(function(){
         id = cur_row[0].id;
     }
 
-    layer.open({
-        title: '修改菜单',
-        type: 2,
-        area: ['750px', '550px'],
-        fixed: false, //不固定
-        maxmin: true,
-        content: ctx + '/system/menu/add/2/'+ id,
-    });
+    createModal('修改菜单', ctx + '/system/menu/add/2/'+ id);
 })
 
 $("#delete").click(function(){
