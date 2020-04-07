@@ -1,13 +1,17 @@
 package com.xichoo.finax.modules.system.controller;
 
-import com.alibaba.fastjson.JSON;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.xichoo.finax.common.util.Result;
 import com.xichoo.finax.modules.system.entity.Config;
 import com.xichoo.finax.modules.system.service.ConfigService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
 
 /**
  * 系统参数管理控制器
@@ -16,21 +20,57 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping("/system/config")
-public class ConfigController {
+public class ConfigController extends BaseController{
     @Autowired
     private ConfigService configService;
 
-    @RequestMapping("/save")
+    /**
+     * 加载用户数据
+     */
+    @PostMapping("/list")
     @ResponseBody
-    public String save(Model model){
+    public Object list(HttpServletRequest request){
+        startPage(request);
+        List<Config> list = configService.list(new QueryWrapper<Config>().orderByDesc("create_date"));
+        return pageData(list);
+    }
 
-        Config entity = new Config();
-        entity.setParamKey("1");
-        entity.setParamValue("2");
-        entity.setRemark("");
-        configService.saveOrUpdate(entity);
+    @GetMapping("/add/{id}")
+    public String add(HttpServletRequest request, @PathVariable String id){
+        Config config = configService.getById(id);
+        request.setAttribute("entity", config==null?new Config():config);
+        return "/modules/system/config/add";
+    }
 
-        return JSON.toJSONString(entity);
+    @PostMapping("/add")
+    @ResponseBody
+    public Result add(Config config){
+        if(config.getId() == null){
+            config.setCreateDate(new Date());
+        }
+        configService.saveOrUpdate(config);
+        return Result.success();
+    }
+
+    @GetMapping("/checkUsername")
+    @ResponseBody
+    public Result checkParamKey(String id, String paramKey){
+        List<Config> list = configService.list(new QueryWrapper<Config>().eq("param_key", paramKey));
+        boolean valid = list.size() == 0;
+        Config config = configService.getById(id);
+        if(config!=null && list.size()>0){
+            if(list.get(0).getParamKey().equals(config.getParamKey())){
+                valid = true;
+            }
+        }
+        return new Result("valid", valid);
+    }
+
+    @GetMapping("/delete/{ids}")
+    @ResponseBody
+    public Result delete(@PathVariable String ids){
+        configService.removeByIds(Arrays.asList(ids.split(",")));
+        return Result.success();
     }
 
 }

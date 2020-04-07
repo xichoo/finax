@@ -49,3 +49,37 @@ var getSelectRows = function(table){
     }
     return row;
 }
+
+//删除选中行
+var delSelectRows = function(table, url){
+    var row = $(table).bootstrapTable('getSelections');
+    if(row.length == 0){
+        layer.msg('请选择行');
+        return;
+    }
+
+    layer.confirm('确认删除吗？', {
+        btn: ['确定','取消'] //按钮
+    }, function(){
+        var ids = row[0].id;
+        if(row.length > 1){
+            for(var i=1;i<row.length;i++){
+                ids = ids + ',' + row[i].id;
+            }
+        }
+        $.ajax({
+            url: url + ids,
+            success:function(data){
+                switch (data.code){
+                    case 0:
+                        layer.msg(data.msg, {icon: 6});
+                        $(table).bootstrapTable('refresh');
+                        break;
+                    case 500:
+                        layer.msg(data.msg , {icon: 5});
+                        break;
+                }
+            }
+        })
+    });
+}

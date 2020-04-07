@@ -15,35 +15,9 @@ $("#add").click(function(){
 
 $("#edit").click(function(){
     var row = getSelectRows("#table");
-
     createModal('修改用户信息', ctx + '/system/user/add/'+ row[0].id);
 })
 
 $("#delete").click(function(){
-    var row = getSelectRows("#table");
-
-    layer.confirm('确认删除吗？', {
-        btn: ['确定','取消'] //按钮
-    }, function(){
-        var ids = row[0].id;
-        if(row.length > 1){
-            for(var i=1;i<row.length;i++){
-                ids = ids + ',' + row[i].id;
-            }
-        }
-        $.ajax({
-            url: ctx + '/system/user/delete/' + ids,
-            success:function(data){
-                switch (data.code){
-                    case 0:
-                        layer.msg(data.msg, {icon: 6});
-                        $("#table").bootstrapTable('refresh');
-                        break;
-                    case 500:
-                        layer.msg(data.msg , {icon: 5});
-                        break;
-                }
-            }
-        })
-    });
+    delSelectRows("#table", ctx + '/system/user/delete/');
 })

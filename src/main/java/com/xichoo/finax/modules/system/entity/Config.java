@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
+import java.util.Date;
+
 /**
  * 系统参数配置
  * @author xichoo@live.cn
@@ -19,5 +21,7 @@ public class Config {
     private String paramValue;
 
     private String remark;
+
+    private Date createDate;
 
 }
