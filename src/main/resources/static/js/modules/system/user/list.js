@@ -1,13 +1,11 @@
-var columns = [
+createTable('#table', ctx + '/system/user/list', [
     {checkbox: true},
     {field: 'id', title: 'ID'},
     {field: 'username', title: '用户名'},
     {field: 'email', title: '邮箱'},
     {field: 'mobile', title: '电话'},
     {field: 'createDate', title: '创建日期'}
-];
-
-createTable('#table', ctx + '/system/user/list', columns);
+]);
 
 $("#add").click(function(){
     createModal('添加用户信息', ctx + '/system/user/add');

@@ -1,35 +1,33 @@
-var columns = [
-    {checkbox: true},
-    {field: 'name', title: '菜单名称', width: 200},
-    {field: 'url', title: '菜单url', width: 300},
-    {field: 'icon', title: '图标', width: 200},
-    {field: 'orderby', title: '排序值', width: 100},
-    {field: 'createDate', title: '创建时间'},
-];
-
-//加载子菜单
-InitSubTable = function (index, row, $detail) {
-    var parentId = row.id;
-    var cur_table = $detail.html('<table id="cur_table"></table>').find('table');
-    $(cur_table).bootstrapTable({
-        url: ctx + '/system/menu/list',
-        method: 'post',
-        contentType: "application/x-www-form-urlencoded",
-        queryParams: {parentId: parentId},
-        clickToSelect: true,
-        columns: [
-            {field: '', title: ''},
-            {checkbox: true},
-            {field: 'name', title: '二级菜单', width: 200},
-            {field: 'url', title: '菜单url', width: 300},
-            {field: 'icon', title: '图标', width: 200},
-            {field: 'orderby', title: '排序值', width: 100},
-            {field: 'createDate', title: '创建时间'},
-        ],
-    });
-};
-
-createTable('#table', ctx + '/system/menu/list', columns, true,InitSubTable);
+createTable('#table', ctx + '/system/menu/list', [
+        {checkbox: true},
+        {field: 'name', title: '菜单名称', width: 200},
+        {field: 'url', title: '菜单url', width: 300},
+        {field: 'icon', title: '图标', width: 200},
+        {field: 'orderby', title: '排序值', width: 100},
+        {field: 'createDate', title: '创建时间'},
+    ],
+    true,
+    function (index, row, $detail) {
+        var parentId = row.id;
+        var cur_table = $detail.html('<table id="cur_table"></table>').find('table');
+        $(cur_table).bootstrapTable({
+            url: ctx + '/system/menu/list',
+            method: 'post',
+            contentType: "application/x-www-form-urlencoded",
+            queryParams: {parentId: parentId},
+            clickToSelect: true,
+            columns: [
+                {field: '', title: ''},
+                {checkbox: true},
+                {field: 'name', title: '二级菜单', width: 200},
+                {field: 'url', title: '菜单url', width: 300},
+                {field: 'icon', title: '图标', width: 200},
+                {field: 'orderby', title: '排序值', width: 100},
+                {field: 'createDate', title: '创建时间'},
+            ],
+        });
+    }
+);
 
 $("#add").click(function(){
     var parentId = 0;
