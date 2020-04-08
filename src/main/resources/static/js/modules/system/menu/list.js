@@ -1,10 +1,10 @@
 createTable('#table', ctx + '/system/menu/list', [
         {checkbox: true},
-        {field: 'name', title: '菜单名称', width: 200},
-        {field: 'url', title: '菜单url', width: 300},
-        {field: 'icon', title: '图标', width: 200},
-        {field: 'orderby', title: '排序值', width: 100},
-        {field: 'createDate', title: '创建时间'},
+        {field: 'name', title: '菜单名称', width: 20, widthUnit: '%'},
+        {field: 'url', title: '菜单url', width: 25, widthUnit: '%'},
+        {field: 'icon', title: '图标', width: 15, widthUnit: '%'},
+        {field: 'orderby', title: '排序值', width: 15, widthUnit: '%'},
+        {field: 'createDate', title: '创建时间', width: 25, widthUnit: '%'},
     ],
     true,
     function (index, row, $detail) {
@@ -16,14 +16,15 @@ createTable('#table', ctx + '/system/menu/list', [
             contentType: "application/x-www-form-urlencoded",
             queryParams: {parentId: parentId},
             clickToSelect: true,
+            height: 300,
             columns: [
                 {field: '', title: ''},
                 {checkbox: true},
-                {field: 'name', title: '二级菜单', width: 200},
-                {field: 'url', title: '菜单url', width: 300},
-                {field: 'icon', title: '图标', width: 200},
-                {field: 'orderby', title: '排序值', width: 100},
-                {field: 'createDate', title: '创建时间'},
+                {field: 'name', title: '二级菜单', width: 20, widthUnit: '%'},
+                {field: 'url', title: '菜单url', width: 25, widthUnit: '%'},
+                {field: 'icon', title: '图标', width: 15, widthUnit: '%'},
+                {field: 'orderby', title: '排序值', width: 15, widthUnit: '%'},
+                {field: 'createDate', title: '创建时间', width: 25, widthUnit: '%'},
             ],
         });
     }

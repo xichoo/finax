@@ -1,10 +1,10 @@
 createTable('#table', ctx + '/system/user/list', [
     {checkbox: true},
-    {field: 'id', title: 'ID'},
-    {field: 'username', title: '用户名'},
-    {field: 'email', title: '邮箱'},
-    {field: 'mobile', title: '电话'},
-    {field: 'createDate', title: '创建日期'}
+    {field: 'id', title: 'ID', width: 15, widthUnit: '%'},
+    {field: 'username', title: '用户名', width: 20, widthUnit: '%'},
+    {field: 'email', title: '邮箱', width: 20, widthUnit: '%'},
+    {field: 'mobile', title: '电话', width: 20, widthUnit: '%'},
+    {field: 'createDate', title: '创建日期', width: 25, widthUnit: '%'},
 ]);
 
 $("#add").click(function(){

@@ -1,10 +1,9 @@
 createTable('#table', ctx + '/system/config/list', [
     {checkbox: true},
-    {field: 'id', title: 'ID'},
-    {field: 'paramKey', title: '参数名'},
-    {field: 'paramValue', title: '参数值'},
-    {field: 'remark', title: '说明'},
-    {field: 'createDate', title: '创建日期'}
+    {field: 'paramKey', title: '参数名', width: 20, widthUnit: '%'},
+    {field: 'paramValue', title: '参数值', width: 20, widthUnit: '%'},
+    {field: 'remark', title: '说明', width: 35, widthUnit: '%'},
+    {field: 'createDate', title: '创建日期', width: 25, widthUnit: '%'},
 ]);
 
 $("#add").click(function(){

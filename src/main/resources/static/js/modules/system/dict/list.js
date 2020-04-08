@@ -1,9 +1,9 @@
 createTable('#table', ctx + '/system/dict/list', [
         {checkbox: true},
-        {field: 'code', title: '字典编码', width: 200},
-        {field: 'name', title: '字典名称', width: 200},
-        {field: 'remark', title: '字典说明', width: 300},
-        {field: 'createDate', title: '创建时间'},
+        {field: 'code', title: '字典编码', width: 20, widthUnit: '%'},
+        {field: 'name', title: '字典名称', width: 20, widthUnit: '%'},
+        {field: 'remark', title: '字典说明', width: 35, widthUnit: '%'},
+        {field: 'createDate', title: '创建时间', width: 25, widthUnit: '%'},
     ],
     true,
     function (index, row, $detail) {
@@ -15,14 +15,15 @@ createTable('#table', ctx + '/system/dict/list', [
             contentType: "application/x-www-form-urlencoded",
             queryParams: {parentId: parentId},
             clickToSelect: true,
+            height: 300,
             columns: [
                 {checkbox: true},
-                {field: 'code', title: '编码', width: 200},
-                {field: 'name', title: '名称', width: 200},
-                {field: 'value', title: '字典值', width: 200},
-                {field: 'isDefault', title: '默认值', width: 100},
-                {field: 'orderby', title: '排序值', width: 100},
-                {field: 'remark', title: '备注'},
+                {field: 'code', title: '编码', width: 15, widthUnit: '%'},
+                {field: 'name', title: '名称', width: 15, widthUnit: '%'},
+                {field: 'value', title: '字典值', width: 15, widthUnit: '%'},
+                {field: 'isDefault', title: '默认值', width: 15, widthUnit: '%'},
+                {field: 'orderby', title: '排序值', width: 15, widthUnit: '%'},
+                {field: 'remark', title: '备注', width: 25, widthUnit: '%'},
             ],
         });
     }
