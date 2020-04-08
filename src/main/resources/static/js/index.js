@@ -34,12 +34,15 @@ $(function () {
         if(url == window.location.hash){
             return false;
         }
+        layer.load(2);
 
         $('.content_frame').attr('src', url.replace('#',''));
         $('.content_frame').height($('.content-wrapper').height() - 80);
 
         $('.text-dark').text($(this).find('p').html());
         $('.breadcrumb').find('li').eq(1).text($(this).find('p').html());
+
+        layer.closeAll('loading');
     });
 
     /**

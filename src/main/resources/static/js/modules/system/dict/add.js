@@ -1,5 +1,3 @@
-var index = parent.layer.getFrameIndex(window.name);
-
 $(function () {
     $('form').bootstrapValidator({
         message: 'This value is not valid',
@@ -66,9 +64,8 @@ $(function () {
                 success:function (data) {
                     switch (data.code){
                         case 0:
-                            parent.layer.msg(data.msg, {icon: 6});
-                            parent.layer.close(index);
-                            parent.$("#table").bootstrapTable('refresh');
+                            layer.msg(data.msg, {icon: 6});
+                            back();
                             break;
                         case 500:
                             layer.msg(data.msg , {icon: 5});

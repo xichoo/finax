@@ -28,16 +28,20 @@ function queryParam(params){
     return param;
 }
 
-//创建模态框
+//加载新页面
 var createModal = function(title, url){
-    layer.open({
-        title: title,
-        type: 2,
-        area: ['750px', '550px'],
-        fixed: false, //不固定
-        maxmin: true,
-        content: url,
-    });
+    layer.load(2);
+
+    $(".content_frame",parent.document).attr('src', url);
+    $(".content_frame",parent.document).height($(".content-wrapper",parent.document).height() - 80);
+
+    layer.closeAll('loading');
+}
+
+//返回上一页
+var back = function(){
+    window.history.back();
+
 }
 
 //获取选中行
