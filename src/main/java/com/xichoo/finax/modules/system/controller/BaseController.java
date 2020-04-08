@@ -1,5 +1,7 @@
 package com.xichoo.finax.modules.system.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.apache.logging.log4j.util.Strings;
@@ -35,6 +37,18 @@ public class BaseController {
         result.put("rows", list);
         result.put("total", new PageInfo(list).getTotal());
         return result;
+    }
+
+
+    /**
+     * 返回json数组
+     * @param list
+     */
+    public Object jsonArray(List<?> list) {
+        if(list == null || list.isEmpty()){
+            return new JSONArray();
+        }
+        return JSONArray.parseArray(JSON.toJSONString(list));
     }
 
 

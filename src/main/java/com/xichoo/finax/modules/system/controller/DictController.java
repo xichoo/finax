@@ -38,6 +38,16 @@ public class DictController extends BaseController{
         return pageData(list);
     }
 
+    /**
+     * 根据code获取字典数据
+     */
+    @GetMapping("/getList/{code}")
+    @ResponseBody
+    public Object getListByCode(@PathVariable String code){
+        List<Dict> dictList = dictService.getListByCode(code);
+        return jsonArray(dictList);
+    }
+
     @GetMapping("/add/{type}/{id}")
     public String add(HttpServletRequest request, @PathVariable Integer type, @PathVariable Long id){
         Dict dict = new Dict();

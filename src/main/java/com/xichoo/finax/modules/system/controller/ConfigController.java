@@ -35,6 +35,15 @@ public class ConfigController extends BaseController{
         return pageData(list);
     }
 
+    /**
+     * 根据key获取value
+     */
+    @GetMapping("/getValue/{key}")
+    @ResponseBody
+    public Object getListByCode(@PathVariable String key){
+        return configService.getListByCode(key);
+    }
+
     @GetMapping("/add/{id}")
     public String add(HttpServletRequest request, @PathVariable String id){
         Config config = configService.getById(id);

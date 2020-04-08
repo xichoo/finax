@@ -9,5 +9,5 @@ import com.xichoo.finax.modules.system.entity.Config;
  */
 public interface ConfigService extends IService<Config> {
 
-
+    String getListByCode(String key);
 }
