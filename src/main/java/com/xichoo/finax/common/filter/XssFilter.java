@@ -1,6 +1,7 @@
 package com.xichoo.finax.common.filter;
 
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.logging.log4j.util.Strings;
 
 import javax.servlet.*;
@@ -12,8 +13,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Xss过滤器
+ * Xss过滤
  */
+@Slf4j
 public class XssFilter implements Filter{
 
     private List<String> excludes = new ArrayList<>();
@@ -39,6 +41,24 @@ public class XssFilter implements Filter{
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
+
+        //验证Http Referer，防止CSRF攻击
+        String referer = request.getHeader("referer");
+        if(Strings.isNotBlank(referer)){
+            StringBuffer sb = new StringBuffer();
+            String scheme = request.getScheme();
+            String serverName = request.getServerName();
+            sb.append(scheme);
+            sb.append("://");
+            sb.append(serverName);
+            if(referer.indexOf(sb.toString()) != 0){
+                log.info("Http Referer：验证失败");
+                log.info("Http Referer：{}", referer);
+                servletResponse.getWriter().write("illegal request");
+                return;
+            }
+        }
+
         //如果该访问接口在排除列表里面则不拦截
         if(isExcludeUrl(request.getServletPath())){
             filterChain.doFilter(servletRequest,servletResponse);
