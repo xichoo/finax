@@ -20,7 +20,8 @@ createTable('#table', ctx + '/system/dict/list', [
                 {field: 'code', title: '编码', width: 200},
                 {field: 'name', title: '名称', width: 200},
                 {field: 'value', title: '字典值', width: 200},
-                {field: 'isDefault', title: '默认值', width: 200},
+                {field: 'isDefault', title: '默认值', width: 100},
+                {field: 'orderby', title: '排序值', width: 100},
                 {field: 'remark', title: '备注'},
             ],
         });

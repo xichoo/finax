@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50726
 File Encoding         : 65001
 
-Date: 2020-04-07 15:49:16
+Date: 2020-04-07 18:01:06
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -33,6 +33,27 @@ CREATE TABLE `sys_config` (
 -- ----------------------------
 
 -- ----------------------------
+-- Table structure for sys_dict
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_dict`;
+CREATE TABLE `sys_dict` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `parent_id` bigint(20) DEFAULT NULL,
+  `code` varchar(20) DEFAULT NULL,
+  `name` varchar(50) DEFAULT NULL,
+  `value` varchar(100) DEFAULT NULL,
+  `is_default` int(255) DEFAULT NULL,
+  `remark` varchar(255) DEFAULT NULL,
+  `orderby` int(255) DEFAULT NULL,
+  `create_date` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COMMENT='数据字典表';
+
+-- ----------------------------
+-- Records of sys_dict
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for sys_menu
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_menu`;
@@ -45,7 +66,7 @@ CREATE TABLE `sys_menu` (
   `orderby` int(255) DEFAULT NULL,
   `create_date` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COMMENT='系统菜单表';
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COMMENT='系统菜单表';
 
 -- ----------------------------
 -- Records of sys_menu

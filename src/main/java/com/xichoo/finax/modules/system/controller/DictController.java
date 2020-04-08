@@ -70,6 +70,20 @@ public class DictController extends BaseController{
         return Result.success();
     }
 
+    @GetMapping("/checkDictCode")
+    @ResponseBody
+    public Result checkDictCode(String id, String code){
+        List<Dict> list = dictService.list(new QueryWrapper<Dict>().eq("code", code));
+        boolean valid = list.size() == 0;
+        Dict user = dictService.getById(id);
+        if(user!=null && list.size()>0){
+            if(list.get(0).getCode().equals(user.getCode())){
+                valid = true;
+            }
+        }
+        return new Result("valid", valid);
+    }
+
     @GetMapping("/delete/{ids}")
     @ResponseBody
     public Result delete(@PathVariable String ids){

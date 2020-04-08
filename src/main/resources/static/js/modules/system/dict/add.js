@@ -22,12 +22,22 @@ $(function () {
                         regexp: /^[a-zA-Z0-9_]+$/,
                         message: '编码只能包含大写、小写、数字和下划线'
                     },
+                    remote: {
+                        url: ctx + '/system/dict/checkDictCode',
+                        message: "编码已存在",
+                        dataType: 'json',
+                        data: {
+                            "id": $("input[name='id']").val() ,
+                            "code": $("input[name='code']").val() ,
+                        },
+                        delay: 500,//延迟效果
+                    },
                 }
             },
             name: {
                 validators: {
                     notEmpty: {
-                        message: '请输入编码名称'
+                        message: '请输入字典名称'
                     },
                     stringLength: {
                         max: 20,
@@ -35,6 +45,13 @@ $(function () {
                     },
                 }
             },
+            orderby: {
+                validators: {
+                    digits : {
+                        message : '排序值必须是正整数'
+                    }
+                }
+            }
         },
     });
 
