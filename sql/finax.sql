@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50726
 File Encoding         : 65001
 
-Date: 2020-04-07 18:01:06
+Date: 2020-04-09 15:28:45
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -26,7 +26,7 @@ CREATE TABLE `sys_config` (
   `remark` varchar(255) DEFAULT NULL,
   `create_date` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COMMENT='系统参数表';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='系统参数表';
 
 -- ----------------------------
 -- Records of sys_config
@@ -47,11 +47,14 @@ CREATE TABLE `sys_dict` (
   `orderby` int(255) DEFAULT NULL,
   `create_date` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COMMENT='数据字典表';
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COMMENT='数据字典表';
 
 -- ----------------------------
 -- Records of sys_dict
 -- ----------------------------
+INSERT INTO `sys_dict` VALUES ('6', '0', 'sex', '性别', null, null, '', '1', '2020-04-08 10:45:54');
+INSERT INTO `sys_dict` VALUES ('7', '6', 'man', '男', '1', null, '', '1', '2020-04-08 10:46:21');
+INSERT INTO `sys_dict` VALUES ('8', '6', 'woman', '女', '0', null, '', '2', '2020-04-08 10:46:33');
 
 -- ----------------------------
 -- Table structure for sys_menu
@@ -66,7 +69,7 @@ CREATE TABLE `sys_menu` (
   `orderby` int(255) DEFAULT NULL,
   `create_date` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COMMENT='系统菜单表';
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COMMENT='系统菜单表';
 
 -- ----------------------------
 -- Records of sys_menu
@@ -77,6 +80,28 @@ INSERT INTO `sys_menu` VALUES ('3', '1', '角色管理', '#system/role/list', 'f
 INSERT INTO `sys_menu` VALUES ('4', '1', '菜单管理', '#system/menu/list', 'fa-list-ul', '3', '2020-04-02 16:17:53');
 INSERT INTO `sys_menu` VALUES ('5', '1', '参数设置', '#system/config/list', 'fa-cogs', '4', '2020-04-03 10:31:36');
 INSERT INTO `sys_menu` VALUES ('6', '1', '字典管理', '#system/dict/list', 'fa-book', '5', '2020-04-07 14:01:55');
+
+-- ----------------------------
+-- Table structure for sys_operation_log
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_operation_log`;
+CREATE TABLE `sys_operation_log` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `user_id` bigint(20) DEFAULT NULL,
+  `username` varchar(50) DEFAULT NULL,
+  `action` varchar(50) DEFAULT NULL,
+  `method` varchar(200) DEFAULT NULL,
+  `url` varchar(200) DEFAULT NULL,
+  `ip` varchar(20) DEFAULT NULL,
+  `params` varchar(1000) DEFAULT NULL,
+  `result` varchar(200) DEFAULT NULL,
+  `create_date` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=77 DEFAULT CHARSET=utf8 COMMENT='用户操作日志表';
+
+-- ----------------------------
+-- Records of sys_operation_log
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for sys_user
