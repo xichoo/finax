@@ -7,12 +7,12 @@ createTable('#table', ctx + '/system/config/list', [
 ]);
 
 $("#add").click(function(){
-    createModal('添加系统参数', ctx + '/system/config/add');
+    loadUrl('添加系统参数', ctx + '/system/config/add');
 })
 
 $("#edit").click(function(){
     var row = getSelectRows("#table");
-    createModal('修改系统参数', ctx + '/system/config/add/'+ row[0].id);
+    loadUrl('修改系统参数', ctx + '/system/config/add/'+ row[0].id);
 })
 
 $("#delete").click(function(){

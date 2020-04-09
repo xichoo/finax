@@ -36,7 +36,7 @@ $("#add").click(function(){
         parentId = row[0].id;
     }
 
-    createModal('添加字典', ctx + '/system/dict/add/1/' + parentId);
+    loadUrl('添加字典', ctx + '/system/dict/add/1/' + parentId);
 })
 
 $("#edit").click(function(){
@@ -54,7 +54,7 @@ $("#edit").click(function(){
         id = cur_row[0].id;
     }
 
-    createModal('修改字典', ctx + '/system/dict/add/2/'+ id);
+    loadUrl('修改字典', ctx + '/system/dict/add/2/'+ id);
 })
 
 $("#delete").click(function(){

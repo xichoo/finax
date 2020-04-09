@@ -8,12 +8,12 @@ createTable('#table', ctx + '/system/user/list', [
 ]);
 
 $("#add").click(function(){
-    createModal('添加用户信息', ctx + '/system/user/add');
+    loadUrl('添加用户信息', ctx + '/system/user/add');
 })
 
 $("#edit").click(function(){
     var row = getSelectRows("#table");
-    createModal('修改用户信息', ctx + '/system/user/add/'+ row[0].id);
+    loadUrl('修改用户信息', ctx + '/system/user/add/'+ row[0].id);
 })
 
 $("#delete").click(function(){

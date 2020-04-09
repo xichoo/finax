@@ -1,16 +1,28 @@
 //创建列表
-var createTable = function(table, url, columns, detail,onExpandRow){
+var createTable = function(table, url, columns, detail, onExpandRow){
     $(table).bootstrapTable({
         url: url,
         method: "post",
         contentType: "application/x-www-form-urlencoded",
         toolbar: '#toolbar',
+        striped: true,
+        cache: false,
         sidePagination: 'server',
         pagination: true,
+        pageNumber: 1,
+        pageSize: 10,
         showRefresh: true,
         showColumns: true,
         clickToSelect: true,
-        queryParams: queryParam,
+        queryParams: function(){
+            var param = {
+                limit: this.limit, // 页面大小
+                offset: this.offset, // 页码
+                pageNum: this.pageNumber,
+                pageSize: this.pageSize
+            };
+            return param;
+        },
         columns: columns,
         detailView: detail,
         onExpandRow: onExpandRow,
@@ -18,24 +30,25 @@ var createTable = function(table, url, columns, detail,onExpandRow){
     })
 }
 
-function queryParam(params){
-    var param = {
-        limit: this.limit, // 页面大小
-        offset: this.offset, // 页码
-        pageNum: this.pageNumber,
-        pageSize: this.pageSize
-    };
-    return param;
-}
 
-//加载新页面
-var createModal = function(title, url){
+//打开页面
+var loadUrl = function(title, url){
     layer.load(2);
-
     $(".content_frame",parent.document).attr('src', url);
     $(".content_frame",parent.document).height($(".content-wrapper",parent.document).height() - 80);
-
     layer.closeAll('loading');
+}
+
+//打开模态框
+var createModal = function(title, url){
+    layer.open({
+        title: title,
+        type: 2,
+        area: ['750px', '550px'],
+        fixed: false, //不固定
+        maxmin: true,
+        content: url,
+    });
 }
 
 //返回上一页

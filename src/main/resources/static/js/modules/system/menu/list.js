@@ -37,7 +37,7 @@ $("#add").click(function(){
         parentId = row[0].id;
     }
 
-    createModal('添加菜单', ctx + '/system/menu/add/1/' + parentId);
+    loadUrl('添加菜单', ctx + '/system/menu/add/1/' + parentId);
 })
 
 $("#edit").click(function(){
@@ -55,7 +55,7 @@ $("#edit").click(function(){
         id = cur_row[0].id;
     }
 
-    createModal('修改菜单', ctx + '/system/menu/add/2/'+ id);
+    loadUrl('修改菜单', ctx + '/system/menu/add/2/'+ id);
 })
 
 $("#delete").click(function(){
