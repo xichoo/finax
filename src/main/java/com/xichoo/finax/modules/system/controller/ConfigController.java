@@ -1,6 +1,7 @@
 package com.xichoo.finax.modules.system.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.xichoo.finax.common.annotation.OperationLog;
 import com.xichoo.finax.common.util.Result;
 import com.xichoo.finax.modules.system.entity.Config;
 import com.xichoo.finax.modules.system.service.ConfigService;
@@ -24,11 +25,10 @@ public class ConfigController extends BaseController{
     @Autowired
     private ConfigService configService;
 
-    /**
-     * 加载用户数据
-     */
+
     @PostMapping("/list")
     @ResponseBody
+    @OperationLog( value = "查询系统参数列表")
     public Object list(HttpServletRequest request){
         startPage(request);
         List<Config> list = configService.list(new QueryWrapper<Config>().orderByDesc("create_date"));
@@ -40,11 +40,13 @@ public class ConfigController extends BaseController{
      */
     @GetMapping("/getValue/{key}")
     @ResponseBody
-    public Object getListByCode(@PathVariable String key){
-        return configService.getListByCode(key);
+    @OperationLog( value = "根据Key获取参数值")
+    public Object getValueByKey(@PathVariable String key){
+        return configService.getValueByKey(key);
     }
 
     @GetMapping("/add/{id}")
+    @OperationLog( value = "进入系统参数创建页面")
     public String add(HttpServletRequest request, @PathVariable String id){
         Config config = configService.getById(id);
         request.setAttribute("entity", config==null?new Config():config);
@@ -53,6 +55,7 @@ public class ConfigController extends BaseController{
 
     @PostMapping("/add")
     @ResponseBody
+    @OperationLog( value = "创建/更新系统参数")
     public Result add(Config config){
         if(config.getId() == null){
             config.setCreateDate(new Date());
@@ -77,6 +80,7 @@ public class ConfigController extends BaseController{
 
     @GetMapping("/delete/{ids}")
     @ResponseBody
+    @OperationLog( value = "删除系统参数")
     public Result delete(@PathVariable String ids){
         configService.removeByIds(Arrays.asList(ids.split(",")));
         return Result.success();

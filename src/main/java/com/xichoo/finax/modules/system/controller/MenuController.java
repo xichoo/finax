@@ -1,6 +1,7 @@
 package com.xichoo.finax.modules.system.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.xichoo.finax.common.annotation.OperationLog;
 import com.xichoo.finax.common.util.Constant;
 import com.xichoo.finax.common.util.Result;
 import com.xichoo.finax.modules.system.entity.Menu;
@@ -25,11 +26,10 @@ public class MenuController extends BaseController{
     @Autowired
     private MenuService menuService;
 
-    /**
-     * 加载菜单数据
-     */
+
     @PostMapping("/list")
     @ResponseBody
+    @OperationLog( value = "查询菜单列表")
     public Object list(HttpServletRequest request, Integer parentId){
         if(parentId == null) parentId = 0;
         startPage(request);
@@ -39,6 +39,7 @@ public class MenuController extends BaseController{
     }
 
     @GetMapping("/add/{type}/{id}")
+    @OperationLog( value = "进入创建菜单页面")
     public String add(HttpServletRequest request, @PathVariable Integer type, @PathVariable Long id){
         Menu menu = new Menu();
         if(Constant.OperationType.ADD.getType().equals(type)){
@@ -52,6 +53,7 @@ public class MenuController extends BaseController{
 
     @PostMapping("/add")
     @ResponseBody
+    @OperationLog( value = "创建/更新菜单")
     public Result add(Menu menu){
         if(menu.getId() == null){
             menu.setCreateDate(new Date());
@@ -72,6 +74,7 @@ public class MenuController extends BaseController{
 
     @GetMapping("/delete/{ids}")
     @ResponseBody
+    @OperationLog( value = "删除菜单")
     public Result delete(@PathVariable String ids){
         menuService.removeByIds(Arrays.asList(ids.split(",")));
         return Result.success();

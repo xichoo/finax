@@ -19,7 +19,7 @@ public class ConfigServiceImpl extends ServiceImpl<ConfigMapper, Config> impleme
     private ConfigMapper configMapper;
 
     @Override
-    public String getListByCode(String key) {
+    public String getValueByKey(String key) {
         List<Config> configList = configMapper.selectList(
                 new QueryWrapper<Config>().eq("param_key", key));
         if(configList == null || configList.isEmpty()){

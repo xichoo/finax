@@ -1,6 +1,7 @@
 package com.xichoo.finax.modules.system.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.xichoo.finax.common.annotation.OperationLog;
 import com.xichoo.finax.common.util.Constant;
 import com.xichoo.finax.common.util.Result;
 import com.xichoo.finax.modules.system.entity.Dict;
@@ -25,11 +26,10 @@ public class DictController extends BaseController{
     @Autowired
     private DictService dictService;
 
-    /**
-     * 加载字典数据
-     */
+
     @PostMapping("/list")
     @ResponseBody
+    @OperationLog( value = "查询字典列表")
     public Object list(HttpServletRequest request, Integer parentId){
         if(parentId == null) parentId = 0;
         startPage(request);
@@ -38,17 +38,16 @@ public class DictController extends BaseController{
         return pageData(list);
     }
 
-    /**
-     * 根据code获取字典数据
-     */
     @GetMapping("/getList/{code}")
     @ResponseBody
+    @OperationLog( value = "根据code获取字典")
     public Object getListByCode(@PathVariable String code){
         List<Dict> dictList = dictService.getListByCode(code);
         return jsonArray(dictList);
     }
 
     @GetMapping("/add/{type}/{id}")
+    @OperationLog( value = "进入创建字典页面")
     public String add(HttpServletRequest request, @PathVariable Integer type, @PathVariable Long id){
         Dict dict = new Dict();
         if(Constant.OperationType.ADD.getType().equals(type)){
@@ -62,6 +61,7 @@ public class DictController extends BaseController{
 
     @PostMapping("/add")
     @ResponseBody
+    @OperationLog( value = "创建/更新字典")
     public Result add(Dict dict){
         if(dict.getId() == null){
             dict.setCreateDate(new Date());
@@ -96,6 +96,7 @@ public class DictController extends BaseController{
 
     @GetMapping("/delete/{ids}")
     @ResponseBody
+    @OperationLog( value = "删除字典")
     public Result delete(@PathVariable String ids){
         dictService.removeByIds(Arrays.asList(ids.split(",")));
         return Result.success();

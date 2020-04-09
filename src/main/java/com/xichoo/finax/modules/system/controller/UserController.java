@@ -1,6 +1,7 @@
 package com.xichoo.finax.modules.system.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.xichoo.finax.common.annotation.OperationLog;
 import com.xichoo.finax.common.util.Constant;
 import com.xichoo.finax.common.util.Result;
 import com.xichoo.finax.modules.system.entity.User;
@@ -24,18 +25,19 @@ public class UserController extends BaseController{
     @Autowired
     private UserService userService;
 
-    /**
-     * 加载用户数据
-     */
+
     @PostMapping("/list")
     @ResponseBody
+    @OperationLog( value = "查询用户列表")
     public Object list(HttpServletRequest request){
         startPage(request);
         List<User> list = userService.list(new QueryWrapper<User>().orderByDesc("create_date"));
         return pageData(list);
     }
 
+
     @GetMapping("/add/{id}")
+    @OperationLog( value = "进入创建用户页面")
     public String add(HttpServletRequest request, @PathVariable String id){
         User user = userService.getById(id);
         request.setAttribute("entity", user==null?new User():user);
@@ -44,6 +46,7 @@ public class UserController extends BaseController{
 
     @PostMapping("/add")
     @ResponseBody
+    @OperationLog( value = "创建/更新用户")
     public Result add(User user){
         if(user.getId() == null){
             user.setCreateDate(new Date());
@@ -71,6 +74,7 @@ public class UserController extends BaseController{
 
     @GetMapping("/delete/{ids}")
     @ResponseBody
+    @OperationLog( value = "删除用户")
     public Result delete(@PathVariable String ids){
         List<String> list = new ArrayList<>();
         String[] ids_ = ids.split(",");
