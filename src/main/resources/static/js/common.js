@@ -33,10 +33,8 @@ var createTable = function(table, url, columns, detail, onExpandRow){
 
 //打开页面
 var loadUrl = function(title, url){
-    layer.load(2);
     $(".content_frame",parent.document).attr('src', url);
     $(".content_frame",parent.document).height($(".content-wrapper",parent.document).height() - 80);
-    layer.closeAll('loading');
 }
 
 //打开模态框
@@ -54,7 +52,6 @@ var createModal = function(title, url){
 //返回上一页
 var back = function(){
     window.history.back();
-
 }
 
 //获取选中行
