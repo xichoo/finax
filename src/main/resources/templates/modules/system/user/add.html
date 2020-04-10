@@ -1,9 +1,6 @@
 <#include "/header.html"/>
 
 <div class="card card-primary">
-    <div class="card-header">
-        <h6 class="card-title">添加用户</h6>
-    </div>
     <form role="form" action="${request.contextPath}/system/user/add" method="post">
         <input type="hidden" name="id" value="${(entity.id)!}">
         <div class="card-body">

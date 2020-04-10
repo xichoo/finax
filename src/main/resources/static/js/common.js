@@ -1,4 +1,11 @@
-//创建列表
+/**
+ * 创建列表
+ * @param table
+ * @param url
+ * @param columns
+ * @param detail 是否展示子表
+ * @param onExpandRow 加载子表函数
+ */
 var createTable = function(table, url, columns, detail, onExpandRow){
     $(table).bootstrapTable({
         url: url,
@@ -30,14 +37,33 @@ var createTable = function(table, url, columns, detail, onExpandRow){
     })
 }
 
-
-//打开页面
+/**
+ * 打开新地址
+ * @param title
+ * @param url
+ */
 var loadUrl = function(title, url){
-    $(".content_frame",parent.document).attr('src', url);
-    $(".content_frame",parent.document).height($(".content-wrapper",parent.document).height() - 80);
+    $(".content_frame", parent.document).attr('src', url);
+    $(".content_frame", parent.document).height($(".content-wrapper",parent.document).height() - 80);
+    //记住标题
+    $("#oldTitle", parent.document).val($('.text-dark', parent.document).html());
+    $('.text-dark', parent.document).text(title);
 }
 
-//打开模态框
+/**
+ * 返回上页
+ */
+var back = function(){
+    //重置标题
+    $('.text-dark', parent.document).text($("#oldTitle", parent.document).val());
+    window.history.back();
+}
+
+/**
+ * 创建模态框
+ * @param title
+ * @param url
+ */
 var createModal = function(title, url){
     layer.open({
         title: title,
@@ -49,12 +75,11 @@ var createModal = function(title, url){
     });
 }
 
-//返回上一页
-var back = function(){
-    window.history.back();
-}
-
-//获取选中行
+/**
+ * 获取选中行
+ * @param table
+ * @returns {*|jQuery}
+ */
 var getSelectRows = function(table){
     var row = $(table).bootstrapTable('getSelections');
     if(row.length == 0){
@@ -64,7 +89,11 @@ var getSelectRows = function(table){
     return row;
 }
 
-//删除选中行
+/**
+ * 删除选中行
+ * @param table
+ * @param url
+ */
 var delSelectRows = function(table, url){
     var row = $(table).bootstrapTable('getSelections');
     if(row.length == 0){

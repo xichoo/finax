@@ -1,5 +1,4 @@
 $(function () {
-
     /**
      * 页面刷新
      */
@@ -11,7 +10,9 @@ $(function () {
         $('.content_frame').height($('.content-wrapper').height() - 80);
 
         $('.text-dark').text($(menua).find('p').html());
-        $('.breadcrumb').find('li').eq(1).text($(menua).find('p').html());
+        $('.breadcrumb').empty();
+        $('.breadcrumb').append('<li class="breadcrumb-item">主页</li>' +
+            '<li class="breadcrumb-item active">'+ $(menua).find('p').html() +'</li>');
     }
 
     /**
@@ -39,7 +40,9 @@ $(function () {
         $('.content_frame').height($('.content-wrapper').height() - 80);
 
         $('.text-dark').text($(this).find('p').html());
-        $('.breadcrumb').find('li').eq(1).text($(this).find('p').html());
+        $('.breadcrumb').empty();
+        $('.breadcrumb').append('<li class="breadcrumb-item">主页</li>' +
+            '<li class="breadcrumb-item active">'+ $(this).find('p').html() +'</li>');
     });
 
     /**
@@ -47,9 +50,10 @@ $(function () {
      */
     $('.logout').click(function () {
         layer.msg('确定退出系统吗？', {
-            icon: 3
-            ,btn: ['确定', '取消']
-            ,yes: function(index){
+            icon: 3,
+            time: 0,
+            btn: ['确定', '取消'],
+            yes: function(index){
                 layer.close(index);
                 window.location = 'logout';
             }
