@@ -7,31 +7,20 @@ import lombok.Data;
 import java.util.Date;
 
 /**
- * 菜单
+ * 角色
  * @author xichoo@live.cn
  */
 @Data
-@TableName("sys_menu")
-public class Menu {
+@TableName("sys_role")
+public class Role {
 
     @TableId
     private Long id;
 
-    private Long parentId;
+    private String role;
 
-    private String name;
-
-    private String url;
-
-    private String icon;
-
-    private Integer orderby;
+    private String description;
 
     private Date createDate;
-
-    /**
-     * 权限标识
-     */
-    private String permission;
 
 }
