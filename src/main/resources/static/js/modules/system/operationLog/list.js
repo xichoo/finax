@@ -5,9 +5,9 @@ createTable('#table', ctx + '/system/operationLog/list', [
     {field: 'action', title: '动作', width: 20, widthUnit: '%', formatter: function(value,row,index) {
             var text = value;
             if(row.result != ''){
-                text += ' [ <span class="fas fa-check"></span> ]';
-            }else{
                 text += ' [ <span class="fas fa-times"></span> ]';
+            }else{
+                text += ' [ <span class="fas fa-check"></span> ]';
             }
             return text;
         }
