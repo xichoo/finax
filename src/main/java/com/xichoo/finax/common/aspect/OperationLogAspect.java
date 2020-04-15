@@ -8,9 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.SecurityUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
-import org.aspectj.lang.annotation.Around;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -34,18 +32,32 @@ public class OperationLogAspect {
     @Pointcut("@annotation(com.xichoo.finax.common.annotation.OperationLog)")
     public void operationLog(){}
 
+
+    /**
+     * 环绕增强
+     */
     @Around("operationLog()")
-    public Object doAround(ProceedingJoinPoint joinPoint) throws Throwable {
-        Object result = joinPoint.proceed();
+    public Object doAround(ProceedingJoinPoint joinPoint) {
+        Object res = null;
+        String result = null;
+        try {
+            res = joinPoint.proceed();
+        } catch (Throwable t) {
+            result = t.getMessage();
+        }
+
         try{
-            this.saveLog(joinPoint);
-        }catch (Exception e){
+            this.saveLog(joinPoint, result);
+        } catch (Exception e) {
             log.error("OperationLog保存出错：{}", e.getMessage());
         }
-        return result;
+        return res;
     }
 
-    private void saveLog(ProceedingJoinPoint joinPoint){
+    /**
+     * 保存操作日志
+     */
+    private void saveLog(ProceedingJoinPoint joinPoint, String result){
         Signature signature = joinPoint.getSignature();
         MethodSignature methodSignature = (MethodSignature) signature;
         Method method = methodSignature.getMethod();
@@ -64,7 +76,7 @@ public class OperationLogAspect {
         entity.setUsername(loginUser.getUsername());
         entity.setIp(IpUtil.getIpAddr(request));
         entity.setParams("");
-        entity.setResult("");
+        entity.setResult(result);
         entity.setCreateDate(new Date());
         operationLogService.save(entity);
     }
