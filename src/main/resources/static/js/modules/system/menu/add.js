@@ -10,11 +10,11 @@ $(function () {
             name: {
                 validators: {
                     notEmpty: {
-                        message: '请输入菜单名称'
+                        message: '请输入名称'
                     },
                     stringLength: {
                         max: 10,
-                        message: '菜单名称不能超过10个字'
+                        message: '名称不能超过10个字'
                     },
                 }
             },
@@ -35,7 +35,18 @@ $(function () {
                         message : '排序值必须是正整数'
                     }
                 }
-            }
+            },
+            permission: {
+                validators: {
+                    notEmpty: {
+                        message: '请输入权限标识'
+                    },
+                    stringLength: {
+                        max: 50,
+                        message: '权限标识不能超过50个字符'
+                    },
+                }
+            },
         },
     });
 

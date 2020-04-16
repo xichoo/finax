@@ -10,4 +10,5 @@ import com.xichoo.finax.modules.system.entity.User;
 public interface UserService extends IService<User> {
 
 
+    void saveUser(User user, String[] role);
 }

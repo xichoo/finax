@@ -30,6 +30,11 @@ public class Menu {
     private Date createDate;
 
     /**
+     * 菜单类型 1=一级，2=二级，3=功能
+     */
+    private Integer menuType;
+
+    /**
      * 权限标识
      */
     private String permission;

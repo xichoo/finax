@@ -39,10 +39,11 @@ public class MenuController extends BaseController{
 
     @GetMapping("/add/{type}/{id}")
     @OperationLog( value = "进入创建菜单页面")
-    public String add(@PathVariable Integer type, @PathVariable Long id){
+    public String add(@PathVariable Integer type, @PathVariable Long id, Integer menuType){
         Menu menu = new Menu();
         if(Constant.OperationType.ADD.getType().equals(type)){
             menu.setParentId(id);
+            menu.setMenuType(menuType);
         }else if(Constant.OperationType.UPDATE.getType().equals(type)){
             menu = menuService.getById(id);
         }

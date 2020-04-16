@@ -4,7 +4,11 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.xichoo.finax.common.annotation.OperationLog;
 import com.xichoo.finax.common.util.Constant;
 import com.xichoo.finax.common.util.Result;
+import com.xichoo.finax.modules.system.entity.Role;
 import com.xichoo.finax.modules.system.entity.User;
+import com.xichoo.finax.modules.system.entity.UserRole;
+import com.xichoo.finax.modules.system.service.RoleService;
+import com.xichoo.finax.modules.system.service.UserRoleService;
 import com.xichoo.finax.modules.system.service.UserService;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +27,10 @@ import java.util.*;
 public class UserController extends BaseController{
     @Autowired
     private UserService userService;
-
+    @Autowired
+    private RoleService roleService;
+    @Autowired
+    private UserRoleService userRoleService;
 
     @PostMapping("/list")
     @ResponseBody
@@ -39,21 +46,46 @@ public class UserController extends BaseController{
     @OperationLog( value = "进入创建用户页面")
     public String add(String id){
         User user = userService.getById(id);
-        getRequest().setAttribute("entity", user==null?new User():user);
+        //查询角色信息
+        StringBuffer roles = new StringBuffer();
+        List<Role> roleList = roleService.list();
+        List<UserRole> userroleList = userRoleService.list(
+                new QueryWrapper<UserRole>().eq("user_id", id));
+        if(roleList!=null && !roleList.isEmpty()){
+            for(Role role : roleList){
+                String checked = new String();
+                if(userroleList!=null && !userroleList.isEmpty()){
+                    for(UserRole userRole : userroleList){
+                        if(userRole.getRoleId().equals(role.getId())){
+                            checked = "checked";
+                            break;
+                        }
+                    }
+                }
+                roles.append("<div class=\"form-check form-check-inline\">" +
+                        "        <label class=\"form-check-label\">" +
+                        "            <input type=\"checkbox\" class=\"form-check-input\" " +
+                        "                name=\"role\" value="+ role.getId() +" "+ checked +">" + role.getDescription() +
+                        "        </label>" +
+                        "    </div>");
+            }
+        }
+        getRequest().setAttribute("entity", user);
+        getRequest().setAttribute("roles", roles);
         return "/modules/system/user/add";
     }
 
     @PostMapping("/add")
     @ResponseBody
     @OperationLog( value = "创建/更新用户")
-    public Result add(User user){
+    public Result add(User user, String[] role){
         if(user.getId() == null){
             user.setCreateDate(new Date());
         }
         if(Strings.isNotBlank(user.getPassword())){
             user.setPassword(Constant.getPassword(user.getPassword(), user.getUsername()));
         }
-        userService.saveOrUpdate(user);
+        userService.saveUser(user, role);
         return Result.success();
     }
 

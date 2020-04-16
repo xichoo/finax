@@ -37,19 +37,20 @@ public class OperationLogAspect {
      * 环绕增强
      */
     @Around("operationLog()")
-    public Object doAround(ProceedingJoinPoint joinPoint) {
+    public Object doAround(ProceedingJoinPoint joinPoint) throws Throwable {
         Object res = null;
         String result = null;
         try {
             res = joinPoint.proceed();
         } catch (Throwable t) {
             result = t.getMessage();
-        }
-
-        try{
-            this.saveLog(joinPoint, result);
-        } catch (Exception e) {
-            log.error("OperationLog保存出错：{}", e.getMessage());
+            throw t;
+        } finally {
+            try{
+                this.saveLog(joinPoint, result);
+            } catch (Exception e) {
+                log.error("OperationLog保存出错：{}", e.getMessage());
+            }
         }
         return res;
     }
