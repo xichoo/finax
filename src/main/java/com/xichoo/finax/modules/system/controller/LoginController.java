@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * 登录控制器
@@ -28,21 +27,21 @@ public class LoginController extends BaseController{
     public String login(){
         Subject subject = SecurityUtils.getSubject();
         if(subject.isAuthenticated()){
-            return "redirect:index";
+            SecurityUtils.getSubject().logout();
         }
         return "/login";
     }
 
     @PostMapping("/login")
     @ResponseBody
-    public Result login(HttpServletRequest request, String username, String password){
+    public Result login(String username, String password){
         String msg = null;
         // 登陆错误次数
         int errorcount = 0;
         User user = service.getOne(new QueryWrapper<User>().eq("username", username));
         if(user != null && user.getErrorcount() != null) {
             errorcount = user.getErrorcount();
-            request.getSession().setAttribute("loginUser", user);
+            getSession().setAttribute("loginUser", user);
         }
         if(errorcount >= Constant.MAX_ERROR_COUNT){
             return new Result(Constant.LoginState.CAPACHA.getCode(), null);
@@ -80,8 +79,8 @@ public class LoginController extends BaseController{
     }
 
     @PostMapping("/sliderCaptcha")
-    public void sliderCaptcha(HttpServletRequest request){
-        User user = (User) request.getSession().getAttribute("loginUser");
+    public void sliderCaptcha(){
+        User user = (User) getSession().getAttribute("loginUser");
         if(user != null){
             user.setErrorcount(user.getErrorcount() - 1);
             service.updateById(user);

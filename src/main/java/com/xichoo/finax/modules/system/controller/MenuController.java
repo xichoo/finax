@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -30,9 +29,9 @@ public class MenuController extends BaseController{
     @PostMapping("/list")
     @ResponseBody
     @OperationLog( value = "查询菜单列表")
-    public Object list(HttpServletRequest request, Integer parentId){
+    public Object list(Integer parentId){
         if(parentId == null) parentId = 0;
-        startPage(request);
+        startPage();
         List<Menu> list = menuService.list(new QueryWrapper<Menu>().
                 eq("parent_id", parentId).orderByAsc("orderby"));
         return pageData(list);
@@ -40,14 +39,14 @@ public class MenuController extends BaseController{
 
     @GetMapping("/add/{type}/{id}")
     @OperationLog( value = "进入创建菜单页面")
-    public String add(HttpServletRequest request, @PathVariable Integer type, @PathVariable Long id){
+    public String add(@PathVariable Integer type, @PathVariable Long id){
         Menu menu = new Menu();
         if(Constant.OperationType.ADD.getType().equals(type)){
             menu.setParentId(id);
         }else if(Constant.OperationType.UPDATE.getType().equals(type)){
             menu = menuService.getById(id);
         }
-        request.setAttribute("entity", menu);
+        getRequest().setAttribute("entity", menu);
         return "/modules/system/menu/add";
     }
 

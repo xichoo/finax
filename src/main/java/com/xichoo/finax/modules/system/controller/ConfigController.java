@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -29,8 +28,8 @@ public class ConfigController extends BaseController{
     @PostMapping("/list")
     @ResponseBody
     @OperationLog( value = "查询系统参数列表")
-    public Object list(HttpServletRequest request){
-        startPage(request);
+    public Object list(){
+        startPage();
         List<Config> list = configService.list(new QueryWrapper<Config>().orderByDesc("create_date"));
         return pageData(list);
     }
@@ -45,11 +44,11 @@ public class ConfigController extends BaseController{
         return configService.getValueByKey(key);
     }
 
-    @GetMapping("/add/{id}")
+    @GetMapping("/add")
     @OperationLog( value = "进入系统参数创建页面")
-    public String add(HttpServletRequest request, @PathVariable String id){
+    public String add(String id){
         Config config = configService.getById(id);
-        request.setAttribute("entity", config==null?new Config():config);
+        getRequest().setAttribute("entity", config==null?new Config():config);
         return "/modules/system/config/add";
     }
 

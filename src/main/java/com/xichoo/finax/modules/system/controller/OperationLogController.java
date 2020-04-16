@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -23,16 +22,16 @@ public class OperationLogController extends BaseController{
 
     @PostMapping("/list")
     @ResponseBody
-    public Object list(HttpServletRequest request){
-        startPage(request);
+    public Object list(){
+        startPage();
         List<OperationLog> list = service.list(new QueryWrapper<OperationLog>().orderByDesc("create_date"));
         return pageData(list);
     }
 
     @GetMapping("/view/{id}")
-    public String view(HttpServletRequest request, @PathVariable String id){
+    public String view(@PathVariable String id){
         OperationLog entity = service.getById(id);
-        request.setAttribute("entity", entity==null?new OperationLog():entity);
+        getRequest().setAttribute("entity", entity==null?new OperationLog():entity);
         return "/modules/system/operationLog/view";
     }
 

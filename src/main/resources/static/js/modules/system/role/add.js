@@ -23,12 +23,12 @@ $(function () {
                         message: '角色名只能包含大写、小写、数字和下划线'
                     },
                     remote: {
-                        url: ctx + '/system/role/checkUsername',
+                        url: ctx + '/system/role/checkRolename',
                         message: "角色已存在",
                         dataType: 'json',
                         data: {
                             "id": $("input[name='id']").val() ,
-                            "rolename": $("input[name='role']").val() ,
+                            "role": $("input[name='role']").val() ,
                         },
                         delay: 500,//延迟效果
                     },

@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -30,9 +29,9 @@ public class DictController extends BaseController{
     @PostMapping("/list")
     @ResponseBody
     @OperationLog( value = "查询字典列表")
-    public Object list(HttpServletRequest request, Integer parentId){
+    public Object list(Integer parentId){
         if(parentId == null) parentId = 0;
-        startPage(request);
+        startPage();
         List<Dict> list = dictService.list(new QueryWrapper<Dict>().
                 eq("parent_id", parentId).orderByDesc("create_date"));
         return pageData(list);
@@ -48,14 +47,14 @@ public class DictController extends BaseController{
 
     @GetMapping("/add/{type}/{id}")
     @OperationLog( value = "进入创建字典页面")
-    public String add(HttpServletRequest request, @PathVariable Integer type, @PathVariable Long id){
+    public String add(@PathVariable Integer type, @PathVariable Long id){
         Dict dict = new Dict();
         if(Constant.OperationType.ADD.getType().equals(type)){
             dict.setParentId(id);
         }else if(Constant.OperationType.UPDATE.getType().equals(type)){
             dict = dictService.getById(id);
         }
-        request.setAttribute("entity", dict);
+        getRequest().setAttribute("entity", dict);
         return "/modules/system/dict/add";
     }
 

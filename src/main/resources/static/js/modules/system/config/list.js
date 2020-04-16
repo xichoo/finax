@@ -12,7 +12,7 @@ $("#add").click(function(){
 
 $("#edit").click(function(){
     var row = getSelectRows("#table");
-    loadUrl('修改系统参数', ctx + '/system/config/add/'+ row[0].id);
+    loadUrl('修改系统参数', ctx + '/system/config/add?id='+ row[0].id);
 })
 
 $("#delete").click(function(){

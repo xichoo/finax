@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
 /**
@@ -29,18 +28,18 @@ public class UserController extends BaseController{
     @PostMapping("/list")
     @ResponseBody
     @OperationLog( value = "查询用户列表")
-    public Object list(HttpServletRequest request){
-        startPage(request);
+    public Object list(){
+        startPage();
         List<User> list = userService.list(new QueryWrapper<User>().orderByDesc("create_date"));
         return pageData(list);
     }
 
 
-    @GetMapping("/add/{id}")
+    @GetMapping("/add")
     @OperationLog( value = "进入创建用户页面")
-    public String add(HttpServletRequest request, @PathVariable String id){
+    public String add(String id){
         User user = userService.getById(id);
-        request.setAttribute("entity", user==null?new User():user);
+        getRequest().setAttribute("entity", user==null?new User():user);
         return "/modules/system/user/add";
     }
 

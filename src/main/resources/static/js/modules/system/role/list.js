@@ -13,7 +13,7 @@ $("#add").click(function(){
 
 $("#edit").click(function(){
     var row = getSelectRows("#table");
-    loadUrl('修改角色信息', ctx + '/system/role/add/'+ row[0].id);
+    loadUrl('修改角色信息', ctx + '/system/role/add?id='+ row[0].id);
 })
 
 $("#delete").click(function(){

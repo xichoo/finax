@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -29,18 +28,18 @@ public class RoleController extends BaseController{
     @PostMapping("/list")
     @ResponseBody
     @OperationLog( value = "查询角色列表")
-    public Object list(HttpServletRequest request){
-        startPage(request);
+    public Object list(){
+        startPage();
         List<Role> list = roleService.list(new QueryWrapper<Role>().orderByDesc("create_date"));
         return pageData(list);
     }
 
 
-    @GetMapping("/add/{id}")
+    @GetMapping("/add")
     @OperationLog( value = "进入创建角色页面")
-    public String add(HttpServletRequest request, @PathVariable String id){
+    public String add(String id){
         Role role = roleService.getById(id);
-        request.setAttribute("entity", role==null?new Role():role);
+        getRequest().setAttribute("entity", role==null?new Role():role);
         return "/modules/system/role/add";
     }
 
@@ -58,12 +57,12 @@ public class RoleController extends BaseController{
 
     @GetMapping("/checkRolename")
     @ResponseBody
-    public Result checkRolename(String id, String rolename){
-        List<Role> list = roleService.list(new QueryWrapper<Role>().eq("rolename", rolename));
+    public Result checkRolename(String id, String role){
+        List<Role> list = roleService.list(new QueryWrapper<Role>().eq("role", role));
         boolean valid = list.size() == 0;
-        Role role = roleService.getById(id);
-        if(role!=null && list.size()>0){
-            if(list.get(0).getRole().equals(role.getRole())){
+        Role entity = roleService.getById(id);
+        if(entity!=null && list.size()>0){
+            if(list.get(0).getRole().equals(entity.getRole())){
                 valid = true;
             }
         }
