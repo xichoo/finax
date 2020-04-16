@@ -15,7 +15,6 @@ createTable('#table', ctx + '/system/dict/list', [
             contentType: "application/x-www-form-urlencoded",
             queryParams: {parentId: parentId},
             clickToSelect: true,
-            height: 300,
             columns: [
                 {checkbox: true},
                 {field: 'code', title: '编码', width: 15, widthUnit: '%'},
