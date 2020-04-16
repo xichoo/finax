@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50726
 File Encoding         : 65001
 
-Date: 2020-04-16 16:41:47
+Date: 2020-04-16 17:21:09
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -26,7 +26,7 @@ CREATE TABLE `sys_config` (
   `remark` varchar(255) DEFAULT NULL,
   `create_date` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='系统参数表';
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='系统参数表';
 
 -- ----------------------------
 -- Records of sys_config
@@ -96,11 +96,11 @@ CREATE TABLE `sys_operation_log` (
   `method` varchar(200) DEFAULT NULL,
   `url` varchar(200) DEFAULT NULL,
   `ip` varchar(20) DEFAULT NULL,
-  `params` varchar(100) DEFAULT NULL,
+  `params` varchar(2000) DEFAULT NULL,
   `result` varchar(2000) DEFAULT NULL,
   `create_date` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1073 DEFAULT CHARSET=utf8 COMMENT='用户操作日志表';
+) ENGINE=InnoDB AUTO_INCREMENT=1133 DEFAULT CHARSET=utf8 COMMENT='用户操作日志表';
 
 -- ----------------------------
 -- Records of sys_operation_log
@@ -116,7 +116,7 @@ CREATE TABLE `sys_role` (
   `description` varchar(50) DEFAULT NULL,
   `create_date` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='角色表';
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COMMENT='角色表';
 
 -- ----------------------------
 -- Records of sys_role
@@ -151,7 +151,7 @@ CREATE TABLE `sys_user` (
   `create_date` datetime DEFAULT NULL,
   `errorcount` int(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='系统用户表';
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COMMENT='系统用户表';
 
 -- ----------------------------
 -- Records of sys_user

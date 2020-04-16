@@ -1,5 +1,6 @@
 package com.xichoo.finax.common.aspect;
 
+import com.alibaba.fastjson.JSON;
 import com.xichoo.finax.common.util.IpUtil;
 import com.xichoo.finax.modules.system.entity.OperationLog;
 import com.xichoo.finax.modules.system.entity.User;
@@ -46,11 +47,7 @@ public class OperationLogAspect {
             result = t.getMessage();
             throw t;
         } finally {
-            try{
-                this.saveLog(joinPoint, result);
-            } catch (Exception e) {
-                log.error("OperationLog保存出错：{}", e.getMessage());
-            }
+            this.saveLog(joinPoint, result);
         }
         return res;
     }
@@ -67,19 +64,26 @@ public class OperationLogAspect {
 
         String className = joinPoint.getTarget().getClass().getName();
         String methodName = signature.getName();
-
-        OperationLog entity = new OperationLog();
-        entity.setAction(operationLog.value());
-        entity.setMethod(className + "." + methodName);
-        entity.setUrl(request.getRequestURI());
-        User loginUser = (User)SecurityUtils.getSubject().getPrincipal();
-        entity.setUserId(loginUser.getId());
-        entity.setUsername(loginUser.getUsername());
-        entity.setIp(IpUtil.getIpAddr(request));
-        entity.setParams("");
-        entity.setResult(result);
-        entity.setCreateDate(new Date());
-        operationLogService.save(entity);
+        try{
+            OperationLog entity = new OperationLog();
+            entity.setAction(operationLog.value());
+            entity.setMethod(className + "." + methodName);
+            entity.setUrl("["+ request.getMethod() +"] " + request.getRequestURI());
+            User loginUser = (User)SecurityUtils.getSubject().getPrincipal();
+            entity.setUserId(loginUser.getId());
+            entity.setUsername(loginUser.getUsername());
+            entity.setIp(IpUtil.getIpAddr(request));
+            entity.setResult(result);
+            entity.setCreateDate(new Date());
+            //请求参数
+            Object[] args = joinPoint.getArgs();
+            if(args != null && args.length > 0){
+                entity.setParams(JSON.toJSONString(args[0]));
+            }
+            operationLogService.save(entity);
+        }catch (Exception e){
+            log.error("operationLog异常：{}", e.getMessage());
+        }
     }
 
 }
