@@ -36,12 +36,8 @@ public class ConfigController extends BaseController{
         return pageData(list);
     }
 
-    /**
-     * 根据key获取value
-     */
     @GetMapping("/getValue/{key}")
     @ResponseBody
-    @OperationLog( value = "根据Key获取参数值")
     public Object getValueByKey(@PathVariable String key){
         return configService.getValueByKey(key);
     }

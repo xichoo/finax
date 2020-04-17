@@ -6,6 +6,7 @@ import com.xichoo.finax.common.util.Constant;
 import com.xichoo.finax.common.util.Result;
 import com.xichoo.finax.modules.system.entity.Menu;
 import com.xichoo.finax.modules.system.service.MenuService;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -29,6 +30,7 @@ public class MenuController extends BaseController{
     @PostMapping("/list")
     @ResponseBody
     @OperationLog( value = "查询菜单列表")
+    @RequiresPermissions("sys:menu:list")
     public Object list(Integer parentId){
         if(parentId == null) parentId = 0;
         startPage();
@@ -39,6 +41,7 @@ public class MenuController extends BaseController{
 
     @GetMapping("/add/{type}/{id}")
     @OperationLog( value = "进入创建菜单页面")
+    @RequiresPermissions("sys:menu:add")
     public String add(@PathVariable Integer type, @PathVariable Long id, Integer menuType){
         Menu menu = new Menu();
         if(Constant.OperationType.ADD.getType().equals(type)){
@@ -54,6 +57,7 @@ public class MenuController extends BaseController{
     @PostMapping("/add")
     @ResponseBody
     @OperationLog( value = "创建/更新菜单")
+    @RequiresPermissions("sys:menu:add")
     public Result add(Menu menu){
         if(menu.getId() == null){
             menu.setCreateDate(new Date());
@@ -75,6 +79,7 @@ public class MenuController extends BaseController{
     @GetMapping("/delete/{ids}")
     @ResponseBody
     @OperationLog( value = "删除菜单")
+    @RequiresPermissions("sys:menu:delete")
     public Result delete(@PathVariable String ids){
         menuService.removeByIds(Arrays.asList(ids.split(",")));
         return Result.success();

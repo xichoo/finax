@@ -6,6 +6,7 @@ import com.xichoo.finax.common.util.Constant;
 import com.xichoo.finax.common.util.Result;
 import com.xichoo.finax.modules.system.entity.Dict;
 import com.xichoo.finax.modules.system.service.DictService;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -29,6 +30,7 @@ public class DictController extends BaseController{
     @PostMapping("/list")
     @ResponseBody
     @OperationLog( value = "查询字典列表")
+    @RequiresPermissions("sys:dict:list")
     public Object list(Integer parentId){
         if(parentId == null) parentId = 0;
         startPage();
@@ -39,7 +41,6 @@ public class DictController extends BaseController{
 
     @GetMapping("/getList/{code}")
     @ResponseBody
-    @OperationLog( value = "根据code获取字典")
     public Object getListByCode(@PathVariable String code){
         List<Dict> dictList = dictService.getListByCode(code);
         return jsonArray(dictList);
@@ -47,6 +48,7 @@ public class DictController extends BaseController{
 
     @GetMapping("/add/{type}/{id}")
     @OperationLog( value = "进入创建字典页面")
+    @RequiresPermissions("sys:dict:add")
     public String add(@PathVariable Integer type, @PathVariable Long id){
         Dict dict = new Dict();
         if(Constant.OperationType.ADD.getType().equals(type)){
@@ -61,6 +63,7 @@ public class DictController extends BaseController{
     @PostMapping("/add")
     @ResponseBody
     @OperationLog( value = "创建/更新字典")
+    @RequiresPermissions("sys:dict:add")
     public Result add(Dict dict){
         if(dict.getId() == null){
             dict.setCreateDate(new Date());
@@ -96,6 +99,7 @@ public class DictController extends BaseController{
     @GetMapping("/delete/{ids}")
     @ResponseBody
     @OperationLog( value = "删除字典")
+    @RequiresPermissions("sys:dict:delete")
     public Result delete(@PathVariable String ids){
         dictService.removeByIds(Arrays.asList(ids.split(",")));
         return Result.success();

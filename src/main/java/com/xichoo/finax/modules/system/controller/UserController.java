@@ -11,6 +11,7 @@ import com.xichoo.finax.modules.system.service.RoleService;
 import com.xichoo.finax.modules.system.service.UserRoleService;
 import com.xichoo.finax.modules.system.service.UserService;
 import org.apache.logging.log4j.util.Strings;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -35,6 +36,7 @@ public class UserController extends BaseController{
     @PostMapping("/list")
     @ResponseBody
     @OperationLog( value = "查询用户列表")
+    @RequiresPermissions("sys:user:list")
     public Object list(){
         startPage();
         List<User> list = userService.list(new QueryWrapper<User>().orderByDesc("create_date"));
@@ -44,6 +46,7 @@ public class UserController extends BaseController{
 
     @GetMapping("/add")
     @OperationLog( value = "进入创建用户页面")
+    @RequiresPermissions("sys:user:add")
     public String add(String id){
         User user = userService.getById(id);
         //查询角色信息
@@ -78,6 +81,7 @@ public class UserController extends BaseController{
     @PostMapping("/add")
     @ResponseBody
     @OperationLog( value = "创建/更新用户")
+    @RequiresPermissions("sys:user:add")
     public Result add(User user, String[] role){
         if(user.getId() == null){
             user.setCreateDate(new Date());
@@ -106,6 +110,7 @@ public class UserController extends BaseController{
     @GetMapping("/delete/{ids}")
     @ResponseBody
     @OperationLog( value = "删除用户")
+    @RequiresPermissions("sys:user:delete")
     public Result delete(@PathVariable String ids){
         List<String> list = new ArrayList<>();
         String[] ids_ = ids.split(",");

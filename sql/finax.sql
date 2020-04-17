@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50726
 File Encoding         : 65001
 
-Date: 2020-04-16 17:21:09
+Date: 2020-04-17 15:56:16
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -26,11 +26,12 @@ CREATE TABLE `sys_config` (
   `remark` varchar(255) DEFAULT NULL,
   `create_date` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='系统参数表';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='系统参数表';
 
 -- ----------------------------
 -- Records of sys_config
 -- ----------------------------
+INSERT INTO `sys_config` VALUES ('2', 'isOpenRedis', '0', '是否开启Redis缓存', '2020-04-17 15:55:43');
 
 -- ----------------------------
 -- Table structure for sys_dict
@@ -71,7 +72,7 @@ CREATE TABLE `sys_menu` (
   `permission` varchar(255) DEFAULT NULL,
   `menu_type` int(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COMMENT='系统菜单表';
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8 COMMENT='系统菜单表';
 
 -- ----------------------------
 -- Records of sys_menu
@@ -83,6 +84,21 @@ INSERT INTO `sys_menu` VALUES ('4', '1', '菜单管理', '#system/menu/list', 'f
 INSERT INTO `sys_menu` VALUES ('5', '1', '参数设置', '#system/config/list', 'fa-cogs', '4', '2020-04-03 10:31:36', null, '2');
 INSERT INTO `sys_menu` VALUES ('6', '1', '字典管理', '#system/dict/list', 'fa-book', '5', '2020-04-07 14:01:55', null, '2');
 INSERT INTO `sys_menu` VALUES ('7', '1', '系统日志', '#system/operationLog/list', 'fa-file', '6', '2020-04-16 15:21:49', null, '2');
+INSERT INTO `sys_menu` VALUES ('8', '5', '添加/修改', null, null, '1', '2020-04-17 15:35:44', 'sys:config:add', '3');
+INSERT INTO `sys_menu` VALUES ('9', '5', '列表', null, null, '4', '2020-04-17 15:36:17', 'sys:config:list', '3');
+INSERT INTO `sys_menu` VALUES ('10', '5', '删除', null, null, '3', '2020-04-17 15:36:32', 'sys:config:delete', '3');
+INSERT INTO `sys_menu` VALUES ('11', '2', '新增/修改', null, null, '5', '2020-04-17 15:38:10', 'sys:user:add', '3');
+INSERT INTO `sys_menu` VALUES ('12', '2', '列表', null, null, '6', '2020-04-17 15:38:28', 'sys:user:list', '3');
+INSERT INTO `sys_menu` VALUES ('13', '2', '删除', null, null, '7', '2020-04-17 15:38:47', 'sys:user:delete', '3');
+INSERT INTO `sys_menu` VALUES ('14', '3', '新增/修改', null, null, '1', '2020-04-17 15:39:23', 'sys:role:add', '3');
+INSERT INTO `sys_menu` VALUES ('15', '3', '列表', null, null, '2', '2020-04-17 15:39:38', 'sys:role:list', '3');
+INSERT INTO `sys_menu` VALUES ('16', '3', '删除', null, null, '3', '2020-04-17 15:39:53', 'sys:role:delete', '3');
+INSERT INTO `sys_menu` VALUES ('17', '4', '新增/修改', null, null, '1', '2020-04-17 15:40:28', 'sys:menu:add', '3');
+INSERT INTO `sys_menu` VALUES ('18', '4', '列表', null, null, '2', '2020-04-17 15:40:46', 'sys:menu:list', '3');
+INSERT INTO `sys_menu` VALUES ('19', '4', '删除', null, null, '3', '2020-04-17 15:41:01', 'sys:menu:delete', '3');
+INSERT INTO `sys_menu` VALUES ('20', '6', '新增/修改', null, null, '1', '2020-04-17 15:41:50', 'sys:dict:add', '3');
+INSERT INTO `sys_menu` VALUES ('21', '6', '列表', null, null, '2', '2020-04-17 15:42:12', 'sys:dict:list', '3');
+INSERT INTO `sys_menu` VALUES ('22', '6', '删除', null, null, '3', '2020-04-17 15:42:25', 'sys:dict:delete', '3');
 
 -- ----------------------------
 -- Table structure for sys_operation_log
@@ -100,7 +116,7 @@ CREATE TABLE `sys_operation_log` (
   `result` varchar(2000) DEFAULT NULL,
   `create_date` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1133 DEFAULT CHARSET=utf8 COMMENT='用户操作日志表';
+) ENGINE=InnoDB AUTO_INCREMENT=1628 DEFAULT CHARSET=utf8 COMMENT='用户操作日志表';
 
 -- ----------------------------
 -- Records of sys_operation_log
@@ -116,12 +132,11 @@ CREATE TABLE `sys_role` (
   `description` varchar(50) DEFAULT NULL,
   `create_date` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COMMENT='角色表';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='角色表';
 
 -- ----------------------------
 -- Records of sys_role
 -- ----------------------------
-INSERT INTO `sys_role` VALUES ('1', 'admin', '管理员', '2020-04-16 14:01:15');
 
 -- ----------------------------
 -- Table structure for sys_role_menu
@@ -132,7 +147,7 @@ CREATE TABLE `sys_role_menu` (
   `role_id` bigint(20) DEFAULT NULL,
   `menu_id` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COMMENT='角色菜单关系表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='角色菜单关系表';
 
 -- ----------------------------
 -- Records of sys_role_menu
@@ -151,7 +166,7 @@ CREATE TABLE `sys_user` (
   `create_date` datetime DEFAULT NULL,
   `errorcount` int(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COMMENT='系统用户表';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='系统用户表';
 
 -- ----------------------------
 -- Records of sys_user
@@ -167,10 +182,12 @@ CREATE TABLE `sys_user_role` (
   `user_id` bigint(20) DEFAULT NULL,
   `role_id` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COMMENT='用户角色关系表';
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COMMENT='用户角色关系表';
 
 -- ----------------------------
 -- Records of sys_user_role
 -- ----------------------------
 INSERT INTO `sys_user_role` VALUES ('5', '3', '3');
 INSERT INTO `sys_user_role` VALUES ('6', '3', '4');
+INSERT INTO `sys_user_role` VALUES ('8', '1', '1');
+INSERT INTO `sys_user_role` VALUES ('9', '8', '1');

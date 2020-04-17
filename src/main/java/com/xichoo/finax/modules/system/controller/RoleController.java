@@ -5,11 +5,12 @@ import com.xichoo.finax.common.annotation.OperationLog;
 import com.xichoo.finax.common.util.Result;
 import com.xichoo.finax.modules.system.entity.Role;
 import com.xichoo.finax.modules.system.service.RoleService;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -28,6 +29,7 @@ public class RoleController extends BaseController{
     @PostMapping("/list")
     @ResponseBody
     @OperationLog( value = "查询角色列表")
+    @RequiresPermissions("sys:role:list")
     public Object list(){
         startPage();
         List<Role> list = roleService.list(new QueryWrapper<Role>().orderByDesc("create_date"));
@@ -37,6 +39,7 @@ public class RoleController extends BaseController{
 
     @GetMapping("/add")
     @OperationLog( value = "进入创建角色页面")
+    @RequiresPermissions("sys:role:add")
     public String add(String id){
         Role role = roleService.getById(id);
         getRequest().setAttribute("entity", role==null?new Role():role);
@@ -46,6 +49,7 @@ public class RoleController extends BaseController{
     @PostMapping("/add")
     @ResponseBody
     @OperationLog( value = "创建/更新角色")
+    @RequiresPermissions("sys:role:add")
     public Result add(Role role){
         if(role.getId() == null){
             role.setCreateDate(new Date());
@@ -72,15 +76,9 @@ public class RoleController extends BaseController{
     @GetMapping("/delete/{ids}")
     @ResponseBody
     @OperationLog( value = "删除角色")
+    @RequiresPermissions("sys:role:delete")
     public Result delete(@PathVariable String ids){
-        List<String> list = new ArrayList<>();
-        String[] ids_ = ids.split(",");
-        for(int i=0;i<ids_.length;i++){
-            if(!"1".equals(ids_[i])){
-                list.add(ids_[i]);
-            }
-        }
-        roleService.removeByIds(list);
+        roleService.removeByIds(Arrays.asList(ids));
         return Result.success();
     }
 }
