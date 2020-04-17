@@ -40,13 +40,7 @@ public class CustomRealm extends AuthorizingRealm {
         SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
         Set<String> permissions = new HashSet<>();
         User user = (User) principalCollection.getPrimaryPrincipal();
-        List<Menu> menuList = new ArrayList<>();
-        if(user.getId().equals(Constant.SUPER_ADMIN_ID)){
-            menuList = menuService.list(
-                    new QueryWrapper<Menu>().eq("menu_type", Constant.MenuType.THIRD.getType()));
-        }else{
-            menuList = menuService.getListByUserid(user.getId(), Constant.MenuType.THIRD.getType());
-        }
+        List<Menu> menuList = menuService.getListByUserid(user.getId(), Constant.MenuType.THIRD.getType());
 
         for(Menu menu : menuList){
             if(Strings.isBlank(menu.getPermission())){

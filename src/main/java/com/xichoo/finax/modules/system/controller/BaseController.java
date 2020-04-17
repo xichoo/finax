@@ -4,7 +4,9 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.xichoo.finax.modules.system.entity.User;
 import org.apache.logging.log4j.util.Strings;
+import org.apache.shiro.SecurityUtils;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -94,5 +96,11 @@ public class BaseController {
         return JSONArray.parseArray(JSON.toJSONString(list));
     }
 
+    /**
+     * 获取当前登陆用户
+     */
+    public User currentUser(){
+        return (User) SecurityUtils.getSubject().getPrincipal();
+    }
 
 }

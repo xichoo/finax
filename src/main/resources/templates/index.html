@@ -86,54 +86,8 @@
                             </p>
                         </a>
                     </li>
-
-                    <li class="nav-item has-treeview">
-                        <a href="#" class="nav-link">
-                            <i class="nav-icon fas fa-cog"></i>
-                            <p>
-                                系统设置
-                                <i class="fas fa-angle-left right"></i>
-                            </p>
-                        </a>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="#system/user/list" class="menu_link nav-link">
-                                    <i class="fas fa-user nav-icon"></i>
-                                    <p>用户管理</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#system/role/list" class="menu_link nav-link">
-                                    <i class="fas fa-user-plus nav-icon"></i>
-                                    <p>角色管理</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#system/menu/list" class="menu_link nav-link">
-                                    <i class="fas fa-list-ul nav-icon"></i>
-                                    <p>菜单管理</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#system/config/list" class="menu_link nav-link">
-                                    <i class="fas fa-cogs nav-icon"></i>
-                                    <p>参数设置</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#system/dict/list" class="menu_link nav-link">
-                                    <i class="fas fa-book nav-icon"></i>
-                                    <p>字典管理</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#system/operationLog/list" class="menu_link nav-link">
-                                    <i class="fas fa-file nav-icon"></i>
-                                    <p>系统日志</p>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
+                    <!-- 获取用户菜单 -->
+                    ${(menus)!}
                 </ul>
             </nav>
             <!-- /.sidebar-menu -->

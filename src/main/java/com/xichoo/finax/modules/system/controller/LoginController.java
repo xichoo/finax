@@ -3,7 +3,9 @@ package com.xichoo.finax.modules.system.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.xichoo.finax.common.util.Constant;
 import com.xichoo.finax.common.util.Result;
+import com.xichoo.finax.modules.system.entity.Menu;
 import com.xichoo.finax.modules.system.entity.User;
+import com.xichoo.finax.modules.system.service.MenuService;
 import com.xichoo.finax.modules.system.service.UserService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
@@ -11,6 +13,8 @@ import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 /**
@@ -22,6 +26,8 @@ import org.springframework.web.bind.annotation.*;
 public class LoginController extends BaseController{
     @Autowired
     private UserService service;
+    @Autowired
+    private MenuService menuService;
 
     @GetMapping("/login")
     public String login(){
@@ -89,6 +95,34 @@ public class LoginController extends BaseController{
 
     @GetMapping("/index")
     public String index(){
+        Object menusS = getSession().getAttribute("menus");
+        if(menusS == null){
+            StringBuffer menus = new StringBuffer("<li class=\"nav-item has-treeview\">");
+            List<Menu> menuList1 = menuService.getListByUserid(
+                    currentUser().getId(), Constant.MenuType.FIRST.getType());
+            for(Menu menu : menuList1){
+                menus.append("<a href=\"#\" class=\"nav-link\">" +
+                            "     <i class=\"nav-icon fas "+ menu.getIcon() +"\"></i>" +
+                            "     <p>"+ menu.getName() +"<i class=\"fas fa-angle-left right\"></i></p>" +
+                            " </a>");
+
+                List<Menu> menuList2 = menuService.getListByUseridAndPid(
+                        currentUser().getId(), menu.getId(), Constant.MenuType.SECOND.getType());
+                if(menuList2.isEmpty()) continue;
+                menus.append("<ul class=\"nav nav-treeview\">");
+                for(Menu menu2 : menuList2){
+                    menus.append("<li class=\"nav-item\">" +
+                                "     <a href="+ menu2.getUrl() +" class=\"menu_link nav-link\">" +
+                                "         <i class=\"fas "+ menu2.getIcon() +" nav-icon\"></i>" +
+                                "         <p>"+ menu2.getName() +"</p>" +
+                                "     </a>" +
+                                " </li>");
+                }
+                menus.append("</ul>");
+            }
+            menus.append("</li>");
+            getSession().setAttribute("menus", menus);
+        }
         return "/index";
     }
 
