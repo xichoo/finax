@@ -50,6 +50,18 @@ public class BaseController {
     }
 
     /**
+     * 判断请求是否Ajax
+     * @return
+     */
+    public boolean isAjaxRequest(){
+        String xRequestedWith = getRequest().getHeader("x-requested-with");
+        if ("XMLHttpRequest".equalsIgnoreCase(xRequestedWith)) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
      * PageHelper分页处理
      */
     public void startPage(){
