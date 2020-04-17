@@ -19,6 +19,11 @@ public class Constant {
     public static final String SHIRO_ALGORITHMNAME = "MD5";
 
     /**
+     * 超级管理员
+     */
+    public static final Long SUPER_ADMIN_ID = 1L;
+
+    /**
      * 登陆状态
      */
     public enum LoginState {
@@ -50,6 +55,27 @@ public class Constant {
 
         OperationType(Integer type) {
             this.type = type;
+        }
+
+        public Integer getType() {
+            return type;
+        }
+    }
+
+    /**
+     * 菜单类型
+     */
+    public enum MenuType {
+        FIRST(1, "一级菜单"),
+        SECOND(2, "二级菜单"),
+        THIRD(3, "功能项");
+
+        private Integer type;
+        private String msg;
+
+        MenuType(Integer type, String msg) {
+            this.type = type;
+            this.msg = msg;
         }
 
         public Integer getType() {

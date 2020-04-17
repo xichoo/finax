@@ -5,7 +5,10 @@ server:
   servlet:
     context-path: /finax
 
-spring: 
+spring:
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
   freemarker:
     suffix: .html
     request-context-attribute: request
@@ -35,9 +38,7 @@ mybatis-plus:
       column-underline: true
       logic-delete-value: -1
   configuration:
-    # 是否开启驼峰命名规则映射
     map-underscore-to-camel-case: true
-    # 是否映射查询结果中包含空值的列
     call-setters-on-nulls: true
-    # 打印执行sql
+    #打印执行sql
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

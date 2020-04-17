@@ -2,16 +2,25 @@ package com.xichoo.finax.modules.shiro;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.xichoo.finax.common.util.Constant;
+import com.xichoo.finax.modules.system.entity.Menu;
 import com.xichoo.finax.modules.system.entity.User;
+import com.xichoo.finax.modules.system.service.MenuService;
 import com.xichoo.finax.modules.system.service.UserService;
+import org.apache.logging.log4j.util.Strings;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authc.credential.CredentialsMatcher;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.authz.AuthorizationInfo;
+import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * shiro认证
@@ -20,14 +29,33 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class CustomRealm extends AuthorizingRealm {
     @Autowired
     private UserService userService;
+    @Autowired
+    private MenuService menuService;
 
     /**
      * 权限验证
      */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
+        SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
+        Set<String> permissions = new HashSet<>();
+        User user = (User) principalCollection.getPrimaryPrincipal();
+        List<Menu> menuList = new ArrayList<>();
+        if(user.getId().equals(Constant.SUPER_ADMIN_ID)){
+            menuList = menuService.list(
+                    new QueryWrapper<Menu>().eq("menu_type", Constant.MenuType.THIRD.getType()));
+        }else{
+            menuList = menuService.getListByUserid(user.getId(), Constant.MenuType.THIRD.getType());
+        }
 
-        return null;
+        for(Menu menu : menuList){
+            if(Strings.isBlank(menu.getPermission())){
+                continue;
+            }
+            permissions.add(menu.getPermission());
+        }
+        authorizationInfo.setStringPermissions(permissions);
+        return authorizationInfo;
     }
 
     /**
