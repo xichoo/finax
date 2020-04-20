@@ -97,30 +97,40 @@ public class LoginController extends BaseController{
     public String index(){
         Object menusS = getSession().getAttribute("menus");
         if(menusS == null){
-            StringBuffer menus = new StringBuffer("<li class=\"nav-item has-treeview\">");
+            StringBuffer menus = new StringBuffer();
+            // 加载一级菜单
             List<Menu> menuList1 = menuService.getListByUserid(
                     currentUser().getId(), Constant.MenuType.FIRST.getType());
             for(Menu menu : menuList1){
-                menus.append("<a href=\"#\" class=\"nav-link\">" +
+                menus.append("<li class=\"nav-item has-treeview\">");
+                List<Menu> menuList2 = menuService.getListByUseridAndPid(
+                        currentUser().getId(), menu.getId(), Constant.MenuType.SECOND.getType());
+                // 加载二级菜单
+                if(!menuList2.isEmpty()){
+                    menus.append("<a href=\"#\" class=\"nav-link\">" +
                             "     <i class=\"nav-icon fas "+ menu.getIcon() +"\"></i>" +
                             "     <p>"+ menu.getName() +"<i class=\"fas fa-angle-left right\"></i></p>" +
                             " </a>");
 
-                List<Menu> menuList2 = menuService.getListByUseridAndPid(
-                        currentUser().getId(), menu.getId(), Constant.MenuType.SECOND.getType());
-                if(menuList2.isEmpty()) continue;
-                menus.append("<ul class=\"nav nav-treeview\">");
-                for(Menu menu2 : menuList2){
-                    menus.append("<li class=\"nav-item\">" +
+                    menus.append("<ul class=\"nav nav-treeview\">");
+                    for(Menu menu2 : menuList2){
+                        menus.append("<li class=\"nav-item\">" +
                                 "     <a href="+ menu2.getUrl() +" class=\"menu_link nav-link\">" +
                                 "         <i class=\"fas "+ menu2.getIcon() +" nav-icon\"></i>" +
                                 "         <p>"+ menu2.getName() +"</p>" +
                                 "     </a>" +
                                 " </li>");
+                    }
+                    menus.append("</ul>");
+                }else {
+                    // 无子菜单
+                    menus.append("<a href="+ menu.getUrl() +" class=\"menu_link nav-link\">" +
+                            "     <i class=\"nav-icon fas "+ menu.getIcon() +"\"></i>" +
+                            "     <p>"+ menu.getName() +"</p>" +
+                            " </a>");
                 }
-                menus.append("</ul>");
+                menus.append("</li>");
             }
-            menus.append("</li>");
             getSession().setAttribute("menus", menus);
         }
         return "/index";
