@@ -57,7 +57,7 @@ public class RoleController extends BaseController{
         for(Menu menu : menuList){
             menus.append(menu.toString());
         }
-        getRequest().setAttribute("menus", menus.substring(0, menus.length()-1));
+        getRequest().setAttribute("menuList", menus.substring(0, menus.length()-1));
         getRequest().setAttribute("entity", role);
         return "/modules/system/role/add";
     }
