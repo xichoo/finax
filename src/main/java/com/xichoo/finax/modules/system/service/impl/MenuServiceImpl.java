@@ -49,4 +49,9 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
         return menuList;
     }
 
+    @Override
+    public List<Menu> getListByRoleid(Long roleId) {
+        return menuMapper.getListByRoleid(roleId);
+    }
+
 }

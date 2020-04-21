@@ -61,3 +61,42 @@ $(function () {
     })
 
 });
+
+
+// 加载菜单权限
+var setting = {
+    check: {
+        enable: true
+    },
+    data: {
+        simpleData: {
+            enable: true
+        }
+    },
+    callback:{
+        onCheck: onCheck
+    }
+};
+
+var menus = $("#menus").val();
+var cc = menus.split('_');
+for(var i=0;i<cc.length;i++){
+    cc[i] = eval('(' + cc[i] + ')');
+}
+var zNodes = cc
+
+$(document).ready(function(){
+    $.fn.zTree.init($("#ztree"), setting, zNodes);
+    // 初始化选中值
+    onCheck();
+});
+
+function onCheck(){
+    var treeObj = $.fn.zTree.getZTreeObj("ztree");
+    var nodes = treeObj.getCheckedNodes(true);
+    var ids = "";
+    for(var i=0;i<nodes.length;i++){
+        ids += nodes[i].id + ",";
+    }
+    $("#menuIds").val(ids);
+}

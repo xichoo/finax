@@ -9,5 +9,10 @@ import com.xichoo.finax.modules.system.entity.Role;
  */
 public interface RoleService extends IService<Role> {
 
-
+    /**
+     * 保存角色和菜单权限信息
+     * @param role
+     * @param menuIds
+     */
+    void saveRole(Role role, String menuIds);
 }
