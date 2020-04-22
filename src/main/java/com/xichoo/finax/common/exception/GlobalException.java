@@ -41,7 +41,7 @@ public class GlobalException extends BaseController{
     public String handleShiroException(Exception e) throws IOException {
         if(isAjaxRequest()){
             getResponse().setContentType("application/json;charset=UTF-8");
-            getResponse().getWriter().write(JSON.toJSONString(new Result(403, e.getMessage())));
+            getResponse().getWriter().write(JSON.toJSONString(new Result(500, e.getMessage())));
         }else{
             getRequest().setAttribute("msg", e.getMessage());
             return "/error";
