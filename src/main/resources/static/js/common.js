@@ -33,7 +33,7 @@ var createTable = function(table, url, columns, detail, onExpandRow){
         columns: columns,
         detailView: detail,
         onExpandRow: onExpandRow,
-        height: $(window).height(),
+        height: $(window).height()-5,
     })
 }
 
