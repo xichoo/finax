@@ -7,6 +7,7 @@ import com.xichoo.finax.modules.system.entity.Menu;
 import com.xichoo.finax.modules.system.entity.User;
 import com.xichoo.finax.modules.system.service.MenuService;
 import com.xichoo.finax.modules.system.service.UserService;
+import org.apache.logging.log4j.util.Strings;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.subject.Subject;
@@ -14,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Base64;
 import java.util.List;
 
 
@@ -41,7 +43,12 @@ public class LoginController extends BaseController{
     @PostMapping("/login")
     @ResponseBody
     public Result login(String username, String password){
-        String msg = null;
+        String msg = "请输入用户名和密码";
+        if(Strings.isBlank(username) || Strings.isBlank(password)){
+            return new Result(Constant.LoginState.ERROR.getCode(), msg);
+        }
+        password = new String(Base64.getDecoder().decode(password));
+
         // 登陆错误次数
         int errorcount = 0;
         User user = service.getOne(new QueryWrapper<User>().eq("username", username));

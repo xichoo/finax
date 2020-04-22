@@ -4,7 +4,7 @@ $("#signin").click(function(){
 
     $.ajax({
         type:'post',
-        data:$("#login-form").serialize(),
+        data:{'username':username,'password':btoa(password)},
         beforeSend:function(){
             if(username == '' || password == ''){
                 layer.msg('请输入用户名和密码', {icon: 5});
