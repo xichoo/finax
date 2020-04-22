@@ -6,9 +6,16 @@ $(function () {
     if(currenturl != undefined && currenturl != ''){
         var menua = $("a[href='"+ currenturl +"']");
 
+        //加载右侧内容
         $('.content_frame').attr('src', currenturl.replace('#',''));
         $('.content_frame').height($('.content-wrapper').height() - 80);
 
+        //菜单选中
+        $(menua).addClass('active');
+        $(menua).parent().parent().parent().addClass('menu-open');
+        $(menua).parent().parent().show();
+
+        //替换抬头
         $('.text-dark').text($(menua).find('p').html());
         $('.breadcrumb').empty();
         $('.breadcrumb').append('<li class="breadcrumb-item">主页</li>' +
