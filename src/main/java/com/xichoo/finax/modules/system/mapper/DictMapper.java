@@ -13,6 +13,5 @@ import java.util.List;
 @Mapper
 public interface DictMapper extends BaseMapper<Dict>{
 
-    @Select("select * from sys_dict where parent_id in(select id from sys_dict where code=#{code})")
     List<Dict> getListByCode(String code);
 }
