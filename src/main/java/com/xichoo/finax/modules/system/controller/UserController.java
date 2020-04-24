@@ -35,7 +35,6 @@ public class UserController extends BaseController{
 
     @PostMapping("/list")
     @ResponseBody
-    @OperationLog( value = "查询用户列表")
     @RequiresPermissions("sys:user:list")
     public Object list(){
         startPage();
@@ -45,7 +44,6 @@ public class UserController extends BaseController{
 
 
     @GetMapping("/add")
-    @OperationLog( value = "进入创建用户页面")
     @RequiresPermissions("sys:user:add")
     public String add(String id){
         User user = userService.getById(id);
@@ -80,7 +78,7 @@ public class UserController extends BaseController{
 
     @PostMapping("/add")
     @ResponseBody
-    @OperationLog( value = "创建/更新用户")
+    @OperationLog( value = "保存用户信息")
     @RequiresPermissions("sys:user:add")
     public Result add(User user, String[] role){
         if(user.getId() == null){

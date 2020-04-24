@@ -29,7 +29,6 @@ public class MenuController extends BaseController{
 
     @PostMapping("/list")
     @ResponseBody
-    @OperationLog( value = "查询菜单列表")
     @RequiresPermissions("sys:menu:list")
     public Object list(Integer parentId){
         if(parentId == null) parentId = 0;
@@ -40,7 +39,6 @@ public class MenuController extends BaseController{
     }
 
     @GetMapping("/add/{type}/{id}")
-    @OperationLog( value = "进入创建菜单页面")
     @RequiresPermissions("sys:menu:add")
     public String add(@PathVariable Integer type, @PathVariable Long id, Integer menuType){
         Menu menu = new Menu();
@@ -56,7 +54,7 @@ public class MenuController extends BaseController{
 
     @PostMapping("/add")
     @ResponseBody
-    @OperationLog( value = "创建/更新菜单")
+    @OperationLog( value = "保存菜单信息")
     @RequiresPermissions("sys:menu:add")
     public Result add(Menu menu){
         if(menu.getId() == null){

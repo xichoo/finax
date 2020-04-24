@@ -33,7 +33,6 @@ public class RoleController extends BaseController{
 
     @PostMapping("/list")
     @ResponseBody
-    @OperationLog( value = "查询角色列表")
     @RequiresPermissions("sys:role:list")
     public Object list(){
         startPage();
@@ -42,7 +41,6 @@ public class RoleController extends BaseController{
     }
 
     @GetMapping("/add")
-    @OperationLog( value = "进入创建角色页面")
     @RequiresPermissions("sys:role:add")
     public String add(Long id){
         Role role = roleService.getById(id);
@@ -64,7 +62,7 @@ public class RoleController extends BaseController{
 
     @PostMapping("/add")
     @ResponseBody
-    @OperationLog( value = "创建/更新角色")
+    @OperationLog( value = "保存角色信息")
     @RequiresPermissions("sys:role:add")
     public Result add(Role role, String menuIds){
         if(role.getId() == null){

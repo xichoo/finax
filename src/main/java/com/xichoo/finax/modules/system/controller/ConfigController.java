@@ -28,7 +28,6 @@ public class ConfigController extends BaseController{
 
     @PostMapping("/list")
     @ResponseBody
-    @OperationLog( value = "查询系统参数列表")
     @RequiresPermissions("sys:config:list")
     public Object list(){
         startPage();
@@ -43,7 +42,6 @@ public class ConfigController extends BaseController{
     }
 
     @GetMapping("/add")
-    @OperationLog( value = "进入系统参数创建页面")
     @RequiresPermissions("sys:config:add")
     public String add(String id){
         Config config = configService.getById(id);
@@ -53,7 +51,7 @@ public class ConfigController extends BaseController{
 
     @PostMapping("/add")
     @ResponseBody
-    @OperationLog( value = "创建/更新系统参数")
+    @OperationLog( value = "保存系统参数")
     @RequiresPermissions("sys:config:add")
     public Result add(Config config){
         if(config.getId() == null){

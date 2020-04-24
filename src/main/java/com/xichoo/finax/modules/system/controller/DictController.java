@@ -29,7 +29,6 @@ public class DictController extends BaseController{
 
     @PostMapping("/list")
     @ResponseBody
-    @OperationLog( value = "查询字典列表")
     @RequiresPermissions("sys:dict:list")
     public Object list(Integer parentId){
         if(parentId == null) parentId = 0;
@@ -47,7 +46,6 @@ public class DictController extends BaseController{
     }
 
     @GetMapping("/add/{type}/{id}")
-    @OperationLog( value = "进入创建字典页面")
     @RequiresPermissions("sys:dict:add")
     public String add(@PathVariable Integer type, @PathVariable Long id){
         Dict dict = new Dict();
@@ -62,7 +60,7 @@ public class DictController extends BaseController{
 
     @PostMapping("/add")
     @ResponseBody
-    @OperationLog( value = "创建/更新字典")
+    @OperationLog( value = "保存字典信息")
     @RequiresPermissions("sys:dict:add")
     public Result add(Dict dict){
         if(dict.getId() == null){
