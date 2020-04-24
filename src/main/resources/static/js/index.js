@@ -8,7 +8,7 @@ $(function () {
 
         //加载右侧内容
         $('.content_frame').attr('src', currenturl.replace('#',''));
-        $('.content_frame').height($('.content-wrapper').height() - 80);
+        $('.content_frame').height($('.content-wrapper').height() - 75);
 
         //菜单选中
         $(menua).addClass('active');
@@ -44,7 +44,7 @@ $(function () {
         }
 
         $('.content_frame').attr('src', url.replace('#',''));
-        $('.content_frame').height($('.content-wrapper').height() - 80);
+        $('.content_frame').height($('.content-wrapper').height() - 75);
 
         $('.text-dark').text($(this).find('p').html());
         $('.breadcrumb').empty();
