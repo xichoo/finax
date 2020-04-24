@@ -18,12 +18,13 @@ createTable('#table', ctx + '/system/operationLog/list', [
 ]);
 
 function changeType(th,log){
+    $('#logurl').val(log)
     loadUrl(th.text, ctx + '/system/'+ log +'/list');
 }
 
 $("#view").click(function(){
     var row = getSelectRows("#table");
-    loadUrl('查看详情', ctx + '/system/'+ $('#changeType option:selected').val() +'/view/'+ row[0].id);
+    loadUrl('查看详情', ctx + '/system/'+ $('#logurl').val() +'/view/'+ row[0].id);
 })
 
 
