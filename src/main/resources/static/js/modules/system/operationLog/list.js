@@ -17,10 +17,9 @@ createTable('#table', ctx + '/system/operationLog/list', [
     {field: 'createDate', title: '创建日期', width: 20, widthUnit: '%'},
 ]);
 
-$("#changeType").change(function(){
-    loadUrl($(this).children('option:selected').text(),
-        ctx + '/system/'+ $(this).children('option:selected').val() +'/list');
-})
+function changeType(th,log){
+    loadUrl(th.text, ctx + '/system/'+ log +'/list');
+}
 
 $("#view").click(function(){
     var row = getSelectRows("#table");
