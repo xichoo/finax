@@ -4,52 +4,51 @@
     <form role="form" action="${request.contextPath}/system/dict/add" method="post">
         <input type="hidden" name="id" value="${(entity.id)!}">
         <input type="hidden" name="parentId" value="${(entity.parentId)!}">
+        <div class="card-body">
         <#if entity.parentId == 0>
-            <div class="card-body">
-                <div class="form-group col-md-6">
-                    <label for="code">编码</label>
-                    <input type="text" class="form-control" id="code" name="code" value="${(entity.code)!}" placeholder="">
-                </div>
-                <div class="form-group col-md-6">
-                    <label for="name">名称</label>
-                    <input type="text" class="form-control" id="name" name="name" value="${(entity.name)!}" placeholder="">
-                </div>
-                <div class="form-group col-md-6">
-                    <label for="remark">字典说明</label>
-                    <textarea class="form-control" id="remark" name="remark">${(entity.remark)!}</textarea>
-                </div>
+            <div class="form-group col-md-6">
+                <label for="code">编码</label>
+                <input type="text" class="form-control" id="code" name="code" value="${(entity.code)!}" placeholder="">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="name">名称</label>
+                <input type="text" class="form-control" id="name" name="name" value="${(entity.name)!}" placeholder="">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="remark">字典说明</label>
+                <textarea class="form-control" id="remark" name="remark">${(entity.remark)!}</textarea>
             </div>
         <#else>
-            <div class="card-body">
-                <div class="form-group col-md-6">
-                    <label for="code">编码</label>
-                    <input type="text" class="form-control" id="code" name="code" value="${(entity.code)!}" placeholder="">
-                </div>
-                <div class="form-group col-md-6">
-                    <label for="name">名称</label>
-                    <input type="text" class="form-control" id="name" name="name" value="${(entity.name)!}" placeholder="">
-                </div>
-                <div class="form-group col-md-6">
-                    <label for="value">字典值</label>
-                    <input type="text" class="form-control" id="value" name="value" value="${(entity.value)!}" placeholder="">
-                </div>
-                <div class="form-group col-md-3">
-                    <label for="isDefault">是否默认</label>
-                    <select id="isDefault" name="isDefault" class="form-control">
-                        <option value="">否</option>
-                        <option value="1" <#if entity.isDefault??>checked='checked'</#if> >是</option>
-                    </select>
-                </div>
-                <div class="form-group col-md-3">
-                    <label for="orderby">排序值</label>
-                    <input type="text" class="form-control" id="orderby" name="orderby" value="${(entity.orderby)!}" placeholder="">
-                </div>
-                <div class="form-group col-md-6">
-                    <label for="remark">备注</label>
-                    <textarea class="form-control" id="remark" name="remark">${(entity.remark)!}</textarea>
-                </div>
+            <div class="form-group col-md-6">
+                <label for="code">编码</label>
+                <input type="text" class="form-control" id="code" name="code" value="${(entity.code)!}" placeholder="">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="name">名称</label>
+                <input type="text" class="form-control" id="name" name="name" value="${(entity.name)!}" placeholder="">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="value">字典值</label>
+                <input type="text" class="form-control" id="value" name="value" value="${(entity.value)!}" placeholder="">
+            </div>
+            <div class="form-group col-md-3">
+                <label for="isDefault">是否默认</label>
+                <select id="isDefault" name="isDefault" class="form-control">
+                    <option value="">否</option>
+                    <option value="1" <#if entity.isDefault??>checked='checked'</#if> >是</option>
+                </select>
+            </div>
+            <div class="form-group col-md-3">
+                <label for="orderby">排序值</label>
+                <input type="text" class="form-control" id="orderby" name="orderby" value="${(entity.orderby)!}" placeholder="">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="remark">备注</label>
+                <textarea class="form-control" id="remark" name="remark">${(entity.remark)!}</textarea>
             </div>
         </#if>
+        </div>
+
         <div class="card-footer">
             <button type="button" id="submit" class="btn btn-primary">提交</button>
             <button type="button" onclick="back()" class="btn btn-primary disabled">返回</button>

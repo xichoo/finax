@@ -5,43 +5,40 @@
         <input type="hidden" name="id" value="${(entity.id)!}">
         <input type="hidden" name="parentId" value="${(entity.parentId)!}">
         <input type="hidden" name="menuType" value="${(entity.menuType)!}">
+        <div class="card-body">
         <#if entity.menuType == 1>
-            <div class="card-body">
-                <div class="form-group col-md-6">
-                    <label for="name">一级菜单</label>
-                    <input type="text" class="form-control" id="name" name="name" value="${(entity.name)!}" placeholder="">
-                </div>
-                <div class="form-group col-md-6">
-                    <label for="url">URL</label>
-                    <input type="text" class="form-control" id="url" name="url" value="${(entity.url)!}" placeholder="">
-                </div>
-                <div class="form-group col-md-6">
-                    <label for="icon">图标</label>
-                    <input type="text" class="form-control" id="icon" name="icon" value="${(entity.icon)!}" placeholder="">
-                </div>
-                <div class="form-group col-md-6">
-                    <label for="orderby">排序值</label>
-                    <input type="text" class="form-control" id="orderby" name="orderby" value="${(entity.orderby)!}" placeholder="">
-                </div>
+            <div class="form-group col-md-6">
+                <label for="name">一级菜单</label>
+                <input type="text" class="form-control" id="name" name="name" value="${(entity.name)!}" placeholder="">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="url">URL</label>
+                <input type="text" class="form-control" id="url" name="url" value="${(entity.url)!}" placeholder="">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="icon">图标</label>
+                <input type="text" class="form-control" id="icon" name="icon" value="${(entity.icon)!}" placeholder="">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="orderby">排序值</label>
+                <input type="text" class="form-control" id="orderby" name="orderby" value="${(entity.orderby)!}" placeholder="">
             </div>
         <#elseif entity.menuType == 2>
-            <div class="card-body">
-                <div class="form-group col-md-6">
-                    <label for="name">二级菜单</label>
-                    <input type="text" class="form-control" id="name" name="name" value="${(entity.name)!}" placeholder="">
-                </div>
-                <div class="form-group col-md-6">
-                    <label for="url">URL</label>
-                    <input type="text" class="form-control" id="url" name="url" value="${(entity.url)!}" placeholder="">
-                </div>
-                <div class="form-group col-md-6">
-                    <label for="icon">图标</label>
-                    <input type="text" class="form-control" id="icon" name="icon" value="${(entity.icon)!}" placeholder="">
-                </div>
-                <div class="form-group col-md-6">
-                    <label for="orderby">排序值</label>
-                    <input type="text" class="form-control" id="orderby" name="orderby" value="${(entity.orderby)!}" placeholder="">
-                </div>
+            <div class="form-group col-md-6">
+                <label for="name">二级菜单</label>
+                <input type="text" class="form-control" id="name" name="name" value="${(entity.name)!}" placeholder="">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="url">URL</label>
+                <input type="text" class="form-control" id="url" name="url" value="${(entity.url)!}" placeholder="">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="icon">图标</label>
+                <input type="text" class="form-control" id="icon" name="icon" value="${(entity.icon)!}" placeholder="">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="orderby">排序值</label>
+                <input type="text" class="form-control" id="orderby" name="orderby" value="${(entity.orderby)!}" placeholder="">
             </div>
         <#elseif entity.menuType == 3>
             <div class="form-group col-md-6">
@@ -53,6 +50,7 @@
                 <input type="text" class="form-control" id="permission" name="permission" value="${(entity.permission)!}" placeholder="">
             </div>
         </#if>
+        </div>
 
         <div class="card-footer">
             <button type="button" id="submit" class="btn btn-primary">提交</button>
