@@ -5,6 +5,7 @@ import com.xichoo.finax.common.annotation.OperationLog;
 import com.xichoo.finax.common.util.Result;
 import com.xichoo.finax.modules.system.entity.Config;
 import com.xichoo.finax.modules.system.service.ConfigService;
+import org.apache.logging.log4j.util.Strings;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,9 +30,13 @@ public class ConfigController extends BaseController{
     @PostMapping("/list")
     @ResponseBody
     @RequiresPermissions("sys:config:list")
-    public Object list(){
+    public Object list(String keyword){
         startPage();
-        List<Config> list = configService.list(new QueryWrapper<Config>().orderByDesc("create_date"));
+        List<Config> list = configService.list(new QueryWrapper<Config>()
+                .like(Strings.isNotBlank(keyword), "param_key", keyword)
+                .or()
+                .like(Strings.isNotBlank(keyword), "remark", keyword)
+                .orderByDesc("create_date"));
         return pageData(list);
     }
 

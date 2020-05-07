@@ -1,4 +1,4 @@
-createTable('#table', ctx + '/system/user/list', [
+createTable('#table', ctx + '/system/user/list', true, [
     {checkbox: true},
     {field: 'id', title: 'ID', width: 15, widthUnit: '%'},
     {field: 'username', title: '用户名', width: 20, widthUnit: '%'},

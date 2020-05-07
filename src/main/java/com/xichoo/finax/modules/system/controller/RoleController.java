@@ -7,6 +7,7 @@ import com.xichoo.finax.modules.system.entity.Menu;
 import com.xichoo.finax.modules.system.entity.Role;
 import com.xichoo.finax.modules.system.service.MenuService;
 import com.xichoo.finax.modules.system.service.RoleService;
+import org.apache.logging.log4j.util.Strings;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -34,9 +35,11 @@ public class RoleController extends BaseController{
     @PostMapping("/list")
     @ResponseBody
     @RequiresPermissions("sys:role:list")
-    public Object list(){
+    public Object list(String keyword){
         startPage();
-        List<Role> list = roleService.list(new QueryWrapper<Role>().orderByDesc("create_date"));
+        List<Role> list = roleService.list(new QueryWrapper<Role>()
+                .like(Strings.isNotBlank(keyword), "description", keyword)
+                .orderByDesc("create_date"));
         return pageData(list);
     }
 

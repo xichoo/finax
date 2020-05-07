@@ -1,4 +1,4 @@
-createTable('#table', ctx + '/system/operationLog/list', [
+createTable('#table', ctx + '/system/operationLog/list', true, [
     {checkbox: true},
     {field: 'id', title: 'ID', width: 10, widthUnit: '%'},
     {field: 'username', title: '操作人', width: 15, widthUnit: '%'},

@@ -1,4 +1,4 @@
-createTable('#table', ctx + '/system/menu/list', [
+createTable('#table', ctx + '/system/menu/list', false, [
         {checkbox: true},
         {field: 'name', title: '一级菜单', width: 20, widthUnit: '%'},
         {field: 'url', title: 'URL', width: 25, widthUnit: '%'},

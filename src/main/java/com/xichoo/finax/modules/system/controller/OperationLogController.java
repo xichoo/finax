@@ -3,6 +3,7 @@ package com.xichoo.finax.modules.system.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.xichoo.finax.modules.system.entity.OperationLog;
 import com.xichoo.finax.modules.system.service.OperationLogService;
+import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -22,9 +23,13 @@ public class OperationLogController extends BaseController{
 
     @PostMapping("/list")
     @ResponseBody
-    public Object list(){
+    public Object list(String keyword){
         startPage();
-        List<OperationLog> list = service.list(new QueryWrapper<OperationLog>().orderByDesc("create_date"));
+        List<OperationLog> list = service.list(new QueryWrapper<OperationLog>()
+                .like(Strings.isNotBlank(keyword), "username", keyword)
+                .or()
+                .like(Strings.isNotBlank(keyword), "action", keyword)
+                .orderByDesc("create_date"));
         return pageData(list);
     }
 

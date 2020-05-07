@@ -1,4 +1,4 @@
-createTable('#table', ctx + '/system/dict/list', [
+createTable('#table', ctx + '/system/dict/list', false, [
         {checkbox: true},
         {field: 'code', title: '字典编码', width: 20, widthUnit: '%'},
         {field: 'name', title: '字典名称', width: 20, widthUnit: '%'},

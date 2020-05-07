@@ -1,12 +1,13 @@
 /**
  * 创建列表
  * @param table
- * @param url
- * @param columns
+ * @param url 数据来源
+ * @param search 显示搜索框
+ * @param columns 展示列
  * @param detail 是否展示子表
  * @param onExpandRow 加载子表函数
  */
-var createTable = function(table, url, columns, detail, onExpandRow){
+var createTable = function(table, url, search, columns, detail, onExpandRow){
     $(table).bootstrapTable({
         url: url,
         method: "post",
@@ -21,12 +22,15 @@ var createTable = function(table, url, columns, detail, onExpandRow){
         showRefresh: true,
         showColumns: true,
         clickToSelect: true,
+        search: search,
+        showSearchButton: true,
         queryParams: function(){
             var param = {
-                limit: this.limit, // 页面大小
-                offset: this.offset, // 页码
+                limit: this.limit,
+                offset: this.offset,
                 pageNum: this.pageNumber,
-                pageSize: this.pageSize
+                pageSize: this.pageSize,
+                keyword: $('.search-input').val(),
             };
             return param;
         },
@@ -36,6 +40,15 @@ var createTable = function(table, url, columns, detail, onExpandRow){
         height: $(window).height()-20,
     })
 }
+
+/**
+ * 列表搜索
+ */
+$(function(){
+    $(".search button[name=search]").click(function () {
+        $(".table").bootstrapTable('refresh');
+    })
+})
 
 /**
  * 打开新地址

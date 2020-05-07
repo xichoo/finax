@@ -1,4 +1,4 @@
-createTable('#table', ctx + '/system/config/list', [
+createTable('#table', ctx + '/system/config/list', true, [
     {checkbox: true},
     {field: 'paramKey', title: '参数名', width: 20, widthUnit: '%'},
     {field: 'paramValue', title: '参数值', width: 20, widthUnit: '%'},

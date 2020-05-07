@@ -1,4 +1,4 @@
-createTable('#table', ctx + '/system/role/list', [
+createTable('#table', ctx + '/system/role/list', true, [
     {checkbox: true},
     {field: 'id', title: 'ID', width: 15, widthUnit: '%'},
     {field: 'role', title: '角色名', width: 25, widthUnit: '%'},

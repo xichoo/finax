@@ -36,9 +36,11 @@ public class UserController extends BaseController{
     @PostMapping("/list")
     @ResponseBody
     @RequiresPermissions("sys:user:list")
-    public Object list(){
+    public Object list(String keyword){
         startPage();
-        List<User> list = userService.list(new QueryWrapper<User>().orderByDesc("create_date"));
+        List<User> list = userService.list(new QueryWrapper<User>()
+                .like(Strings.isNotBlank(keyword), "username", keyword)
+                .orderByDesc("create_date"));
         return pageData(list);
     }
 
