@@ -7,8 +7,8 @@
         </button>
         <div class="dropdown-menu">
             <input type="hidden" id="logurl" value="operationLog">
-            <a class="dropdown-item" onclick="changeType(this,'operationLog')">操作日志</a>
-            <a class="dropdown-item" onclick="changeType(this,'loginLog')">登录日志</a>
+            <a class="dropdown-item" onclick="changeType(this,'operationLogList')">操作日志</a>
+            <a class="dropdown-item" onclick="changeType(this,'loginLogList')">登录日志</a>
         </div>
     </div>
     <button id="view" type="button" class="btn btn-light">
@@ -20,4 +20,4 @@
 
 </table>
 
-<script src="${request.contextPath}/js/modules/system/operationLog/list.js"></script>
+<script src="${request.contextPath}/js/modules/system/log/operationLogList.js"></script>

@@ -5,6 +5,7 @@ import com.xichoo.finax.common.util.Constant;
 import com.xichoo.finax.common.util.Result;
 import com.xichoo.finax.modules.system.entity.Menu;
 import com.xichoo.finax.modules.system.entity.User;
+import com.xichoo.finax.modules.system.service.LoginLogService;
 import com.xichoo.finax.modules.system.service.MenuService;
 import com.xichoo.finax.modules.system.service.UserService;
 import org.apache.logging.log4j.util.Strings;
@@ -30,6 +31,8 @@ public class LoginController extends BaseController{
     private UserService service;
     @Autowired
     private MenuService menuService;
+    @Autowired
+    private LoginLogService loginLogService;
 
     @GetMapping("/login")
     public String login(){
@@ -65,6 +68,7 @@ public class LoginController extends BaseController{
             subject.login(token);
             user.setErrorcount(0);
             service.updateById(user);
+            loginLogService.save(user, getRequest());
             return new Result(Constant.LoginState.SUCCESS.getCode(), msg);
         }catch (UnknownAccountException e){
             msg = "用户名或密码错误";
@@ -139,6 +143,7 @@ public class LoginController extends BaseController{
                 menus.append("</li>");
             }
             getSession().setAttribute("menus", menus);
+            getSession().setAttribute("currentUser", currentUser());
         }
         return "/index";
     }

@@ -1,4 +1,4 @@
-createTable('#table', ctx + '/system/operationLog/list', true, [
+createTable('#table', ctx + '/system/log/operationLogList', true, [
     {checkbox: true},
     {field: 'id', title: 'ID', width: 10, widthUnit: '%'},
     {field: 'username', title: '操作人', width: 15, widthUnit: '%'},
@@ -19,12 +19,12 @@ createTable('#table', ctx + '/system/operationLog/list', true, [
 
 function changeType(th,log){
     $('#logurl').val(log)
-    loadUrl(th.text, ctx + '/system/'+ log +'/list');
+    loadUrl(th.text, ctx + '/system/log/'+ log);
 }
 
 $("#view").click(function(){
     var row = getSelectRows("#table");
-    loadUrl('查看详情', ctx + '/system/'+ $('#logurl').val() +'/view/'+ row[0].id);
+    loadUrl('查看详情', ctx + '/system/log/view/'+ row[0].id);
 })
 
 

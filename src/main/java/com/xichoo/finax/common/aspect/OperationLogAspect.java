@@ -1,7 +1,7 @@
 package com.xichoo.finax.common.aspect;
 
 import com.alibaba.fastjson.JSON;
-import com.xichoo.finax.common.util.IpUtil;
+import com.xichoo.finax.common.util.XxUtil;
 import com.xichoo.finax.modules.system.entity.OperationLog;
 import com.xichoo.finax.modules.system.entity.User;
 import com.xichoo.finax.modules.system.service.OperationLogService;
@@ -72,7 +72,7 @@ public class OperationLogAspect {
             User loginUser = (User)SecurityUtils.getSubject().getPrincipal();
             entity.setUserId(loginUser.getId());
             entity.setUsername(loginUser.getUsername());
-            entity.setIp(IpUtil.getIpAddr(request));
+            entity.setIp(XxUtil.getIpAddr(request));
             entity.setResult(result);
             entity.setCreateDate(new Date());
             //请求参数
