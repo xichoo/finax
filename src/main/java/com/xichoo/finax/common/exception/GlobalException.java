@@ -23,10 +23,10 @@ public class GlobalException extends BaseController{
         if(e instanceof UnauthorizedException){
             return defaultHandle(e, JSON.toJSONString(new Result(500, e.getMessage())));
         }else{
-            log.error("未知的异常请求<{}>，错误信息：{}",
-            this.defaultHandle(e, JSON.toJSONString(Result.error())));
+            log.error("未知的请求异常<{}>，错误信息：{}",
+                    getRequest().getRequestURI(), e.getMessage());
+            return defaultHandle(e, JSON.toJSONString(Result.error()));
         }
-        return null;
     }
 
     public String defaultHandle(Exception e, String msg) throws IOException {
