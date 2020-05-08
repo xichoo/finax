@@ -51,7 +51,7 @@ public class LogController extends BaseController{
     public String view(@PathVariable String id){
         OperationLog entity = service.getById(id);
         getRequest().setAttribute("entity", entity==null?new OperationLog():entity);
-        return "/modules/system/operationLog/view";
+        return "/modules/system/log/view";
     }
 
 }
