@@ -15,7 +15,7 @@ spring:
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
     driverClassName: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/finax?useSSL=false&characterEncoding=utf8
+    url: jdbc:mysql://localhost:3306/finax?useSSL=false&characterEncoding=utf8&serverTimezone=GMT
     username: root
     password: Passw0rd
 

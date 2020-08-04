@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : ubuntu
-Source Server Version : 50726
-Source Host           : 127.0.0.1:3306
+Source Server         : Ubuntu
+Source Server Version : 80021
+Source Host           : localhost:3306
 Source Database       : finax
 
 Target Server Type    : MYSQL
-Target Server Version : 50726
+Target Server Version : 80021
 File Encoding         : 65001
 
-Date: 2020-05-08 11:01:59
+Date: 2020-08-04 11:20:53
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -20,7 +20,7 @@ SET FOREIGN_KEY_CHECKS=0;
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_config`;
 CREATE TABLE `sys_config` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `id` bigint NOT NULL AUTO_INCREMENT,
   `param_key` varchar(20) DEFAULT NULL,
   `param_value` varchar(255) DEFAULT NULL,
   `remark` varchar(255) DEFAULT NULL,
@@ -38,14 +38,14 @@ INSERT INTO `sys_config` VALUES ('3', 'test1', '1', '', '2020-04-20 14:58:50');
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_dict`;
 CREATE TABLE `sys_dict` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `parent_id` bigint(20) DEFAULT NULL,
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `parent_id` bigint DEFAULT NULL,
   `code` varchar(20) DEFAULT NULL,
   `name` varchar(50) DEFAULT NULL,
   `value` varchar(100) DEFAULT NULL,
-  `is_default` int(255) DEFAULT NULL,
+  `is_default` int DEFAULT NULL,
   `remark` varchar(255) DEFAULT NULL,
-  `orderby` int(255) DEFAULT NULL,
+  `orderby` int DEFAULT NULL,
   `create_date` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COMMENT='数据字典表';
@@ -62,8 +62,8 @@ INSERT INTO `sys_dict` VALUES ('8', '6', 'woman', '女', '0', null, '', '2', '20
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_login_log`;
 CREATE TABLE `sys_login_log` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `user_id` bigint(20) DEFAULT NULL,
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `user_id` bigint DEFAULT NULL,
   `username` varchar(50) DEFAULT NULL,
   `ip` varchar(20) DEFAULT NULL,
   `os` varchar(50) DEFAULT NULL,
@@ -81,15 +81,15 @@ CREATE TABLE `sys_login_log` (
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_menu`;
 CREATE TABLE `sys_menu` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `parent_id` bigint(20) DEFAULT NULL,
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `parent_id` bigint DEFAULT NULL,
   `name` varchar(100) DEFAULT NULL,
   `url` varchar(50) DEFAULT NULL,
   `icon` varchar(20) DEFAULT NULL,
-  `orderby` int(255) DEFAULT NULL,
+  `orderby` int DEFAULT NULL,
   `create_date` datetime DEFAULT NULL,
   `permission` varchar(255) DEFAULT NULL,
-  `menu_type` int(255) DEFAULT NULL,
+  `menu_type` int DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8 COMMENT='系统菜单表';
 
@@ -124,8 +124,8 @@ INSERT INTO `sys_menu` VALUES ('22', '6', '删除', null, null, '3', '2020-04-17
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_operation_log`;
 CREATE TABLE `sys_operation_log` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `user_id` bigint(20) DEFAULT NULL,
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `user_id` bigint DEFAULT NULL,
   `username` varchar(50) DEFAULT NULL,
   `action` varchar(50) DEFAULT NULL,
   `method` varchar(200) DEFAULT NULL,
@@ -146,7 +146,7 @@ CREATE TABLE `sys_operation_log` (
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_role`;
 CREATE TABLE `sys_role` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `id` bigint NOT NULL AUTO_INCREMENT,
   `role` varchar(20) DEFAULT NULL,
   `description` varchar(50) DEFAULT NULL,
   `create_date` datetime DEFAULT NULL,
@@ -163,9 +163,9 @@ INSERT INTO `sys_role` VALUES ('1', 'test1', '日志管理员', '2020-05-07 11:3
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_role_menu`;
 CREATE TABLE `sys_role_menu` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `role_id` bigint(20) DEFAULT NULL,
-  `menu_id` bigint(20) DEFAULT NULL,
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `role_id` bigint DEFAULT NULL,
+  `menu_id` bigint DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8 COMMENT='角色菜单关系表';
 
@@ -182,13 +182,13 @@ INSERT INTO `sys_role_menu` VALUES ('45', '1', '7');
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_user`;
 CREATE TABLE `sys_user` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `id` bigint NOT NULL AUTO_INCREMENT,
   `username` varchar(20) DEFAULT NULL,
   `password` varchar(50) DEFAULT NULL,
   `email` varchar(20) DEFAULT NULL,
   `mobile` varchar(20) DEFAULT NULL,
   `create_date` datetime DEFAULT NULL,
-  `errorcount` int(255) DEFAULT NULL,
+  `errorcount` int DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COMMENT='系统用户表';
 
@@ -203,9 +203,9 @@ INSERT INTO `sys_user` VALUES ('7', 'test1', '4a3252a5edf8fcaa8bde0bfcce79560d',
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_user_role`;
 CREATE TABLE `sys_user_role` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `user_id` bigint(20) DEFAULT NULL,
-  `role_id` bigint(20) DEFAULT NULL,
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `user_id` bigint DEFAULT NULL,
+  `role_id` bigint DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COMMENT='用户角色关系表';
 
